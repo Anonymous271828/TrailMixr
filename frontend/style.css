@@ -3,6 +3,7 @@ body {
     font-family: 'Inter', sans-serif;
     scroll-snap-type: y mandatory;
     overflow-y: scroll;
+    background-color: #FEFBFB;
 }
 
 .header {
@@ -38,6 +39,7 @@ body {
 
 .button-bg {
     cursor: pointer;
+    font-family: 'Inter';
     background-color: #2C2C2C !important;
     color: #F5F5F5 !important;
     padding: 7px;
@@ -140,4 +142,138 @@ section {
     gap: 10px;
     padding-left: 20px;
     border: none;
+}
+
+.heading {
+    display: flex;
+    color: #303030;
+    font-family: 'Inter';
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 78px;
+    letter-spacing: -1.3px;
+}
+
+.feature {
+    width: 100%;
+    background-color: #FFFFFF;
+    height: 200px;
+    border-radius: 12px;
+    border: 1px solid #d4d4d4;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.feature .title {
+    color: #2C2C2C;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+    letter-spacing: -0.72px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.feature .description {
+    color: #757575;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: -0.72px;
+}
+
+.feature .image {
+    border-radius: 12px;
+    width: 35%;
+    height: 115%;
+    align-items: center;
+    justify-content: center;
+    padding-right: 20px;
+}
+
+.feature-text {
+    align-items: flex-start !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-top: 20px;
+}
+
+.horizontal-scroll {
+    overflow-x: auto;
+    display: flex;
+    flex-direction: row;
+    scroll-snap-type: x mandatory;
+    gap: 25px
+}
+
+.journey-card {
+    width: 500px;
+    height: 300px;
+    border-radius: 12px;
+    border: 1px solid #d4d4d4;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.journey-card {
+  width: 550px;
+  height: 300px;
+  border-radius: 12px;
+  border: 1px solid #d4d4d4;
+  overflow: hidden;
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 40%;
+}
+
+.image-container .image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.journey-title {
+    color: #FFFFFF;
+    font-size: 35px;
+    padding-left: 5px;
+    padding-top: 15px;
+    font-weight: 700;
+}
+
+.journey-description {
+    color: #757575;
+    font-size: 20px;
+    padding-left: 25px;
+    font-weight: 400;
+    padding-top: 15px;
+    padding-right: 25px;
+}
+
+.location-title {
+    color: #FFFFFF;
+    font-size: 20px;
+    padding-left: 5px;
+    margin-top: -5px;
 }
