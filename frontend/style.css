@@ -1,6 +1,8 @@
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
 }
 
 .header {
@@ -26,7 +28,8 @@ body {
     border: none;
     font-family: 'Inter', sans-serif;
     font-weight: 400;
-    font-size: 15px;   
+    font-size: 15px;
+    cursor: pointer;
 }
 
 .header button:hover {
@@ -34,6 +37,7 @@ body {
 }
 
 .button-bg {
+    cursor: pointer;
     background-color: #2C2C2C !important;
     color: #F5F5F5 !important;
     padding: 7px;
@@ -43,6 +47,7 @@ body {
 }
 
 .button-border {
+    cursor: pointer;
     background-color: #FDFDFD !important;
     color: #2C2C2C !important;
     border: 1px solid #767676 !important;
@@ -62,6 +67,15 @@ body {
     letter-spacing: -1.3px;
 }
 
+.title2 {
+    display: flex;
+    color: #FFFFFF;
+    font-family: 'Inter';
+    font-size: 55px;
+    font-weight: 700;
+    width: 100%;
+}
+
 .subtitle {
     color: #757575;
     font-family: 'Inter';
@@ -72,6 +86,17 @@ body {
     letter-spacing: -0.6px;
 }
 
+.subtitle2 {
+    color: #FFFFFF;
+    font-family: 'Inter';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 36px;
+    letter-spacing: -0.6px;
+    text-decoration: underline;
+}
+
 .hint {
     color: #5a5a5a;
     font-family: 'Inter';
@@ -80,4 +105,39 @@ body {
     font-weight: 500;
     line-height: 12px;
     letter-spacing: -0.2px;
+}
+
+section {
+    height: 100vh;
+    padding: 60px 55px;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+}
+
+.section-divider {
+    height: 44px;
+    width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid #D9D9D9;
+}
+
+.trail-search-bar {
+    width: 500px;
+    height: 50px;
+    background-color: #FFFFFF;
+    border-radius: 35px;
+    font-size: 18px;
+    font-style: normal;
+    font-family: 'Inter';
+    color: #C4BCBC;
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: -0.22px;
+    align-items: center;
+    justify-content: left;
+    align-content: center;
+    display: flex;
+    gap: 10px;
+    padding-left: 20px;
+    border: none;
 }
