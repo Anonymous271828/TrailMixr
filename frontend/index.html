@@ -10,16 +10,7 @@
 </head>
 
 <body>
-    <header class="header">
-        <img src="assets/images/trailmixr-logo.png" style="position: absolute; left: 20px; height: 50px;"/>
-        <button>Find a Trail</button>
-        <button>Features</button>
-        <button>Journeys</button>
-        <button>Subscriptions</button>
-        <button>Contact</button>
-        <button class="button-border">Sign In</div>
-        <button class="button-bg">Register</div>
-    </header>
+    <div id="header-placeholder"></div>
 
     <main>
         <section>
@@ -30,10 +21,10 @@
                         <div class="subtitle">Outdoors? We'll show you where to go.</div>
                     </div>
                     <div style="padding-top: 55px;">
-                        <button class="button-bg"
+                        <button onclick="window.location.href='register.html'" class="button-bg"
                             style="width: 260px !important; font-size: 16px; margin-right: 5px">Get
                             Started</button>
-                        <button class="button-border" style="width: 207px !important; font-size: 16px">Find Nearby
+                        <button onclick="document.getElementById('find-nearby-trails').scrollIntoView({ behavior: 'smooth' });" class="button-border" style="width: 207px !important; font-size: 16px">Find Nearby
                             Trails</button>
                     </div>
                     <div style="display: flex; align-items: center; gap: 4px; padding-top: 5px; padding-left: 5px">
@@ -47,11 +38,11 @@
                     </div>
                 </div>
             </div>
-            <img src="assets/images/accent.png" style="max-width: 800px; height: 580px; padding-left: 700px;">
+            <img src="assets/images/accent.png" style="max-width: 800px; height: 580px; padding-left: 690px;">
         </section>
         <div class="section-divider"></div>
-        <div style="position: relative; width: 100%; height: 50%; overflow: hidden;">
-            <img src="assets/images/find-trails.png" style="width: 100%;">
+        <div id="find-nearby-trails" style="position: relative; width: 100%; overflow: hidden;">
+            <img src="assets/images/find-trails.jpg" style="width: 100%; height: 420px; object-fit: cover;">
 
             <section style="
     position: absolute; 
@@ -89,7 +80,7 @@
 
         </div>
         <div class="section-divider"></div>
-        <section style="height: 280vh ">
+        <section style="height: 280vh" id="features">
             <div class="heading" style="padding-bottom: 30px;">TrailMixr Features</div>
             <div class="feature">
                 <img class="image" src="assets/images/feature-showcase-1.png">
@@ -432,16 +423,24 @@
             </div>
         </section>
 
-        <footer class="footer">
-            <img src="assets/images/trailmixr-logo.png" style="position: absolute; left: 20px; height: 50px;"/>
-            <label>© 2025 TrailMixr Inc.</label>
-            <button>Terms and Conditions</button>
-            <button>Privacy Policy</button>
-            <button>Security</button>
-            <button>Contact Us</button>
-            <button>Become a Partner</button>
-        </footer>
+        <div id="footer-placeholder"></div>
     </main>
+
+    <script>
+        // Load the header
+        fetch("header.html")
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("header-placeholder").innerHTML = data;
+            });
+
+        // Load the footer
+        fetch("footer.html")
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("footer-placeholder").innerHTML = data;
+            });
+    </script>
 </body>
 
 </html>
