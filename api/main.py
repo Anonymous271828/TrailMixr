@@ -452,11 +452,16 @@ def main():
     p = pdal.Pipeline(json.dumps(pipeline))
     p.execute()
 
-client = genai.Client(api_key="YOUR_API_KEY")
+def parse_plan(contents):
+    # contents will contain the file contents upload
+    # user input is very risky so ensure nothing can go wrong
+    # like the user can prompt gemini
 
-response = client.models.generate_content(
-    model="gemini-2.5-flash", contents="Explain how AI works in a few words"
-)
+# client = genai.Client(api_key="YOUR_API_KEY")
+
+# response = client.models.generate_content(
+#     model="gemini-2.5-flash", contents="Explain how AI works in a few words"
+# )
 
 # c = Calculate()
 # c.select_trail(name="Algonquin Provincial Park Canoe Routes")

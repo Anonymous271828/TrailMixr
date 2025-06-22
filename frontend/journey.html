@@ -724,13 +724,15 @@
             const formData = new FormData();
             formData.append('file', file);
 
-            const response = await fetch('/upload/', {
+            console.log("Sending form data");
+            const response = await fetch('http://127.0.0.1:8000/api/upload/', {
                 method: 'POST',
                 body: formData,
             });
 
-            const result = await response.json();
-            document.getElementById('response').textContent = result.response || result.error;
+            // const result = await response.json();
+            console.log(response);
+            // document.getElementById('response').textContent = result.response || result.error;
         }
 
         window.onload = async () => {

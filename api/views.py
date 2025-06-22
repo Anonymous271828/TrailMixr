@@ -32,11 +32,11 @@ def test_get_all_trails(request):
 
 @csrf_exempt
 def upload_file(request):
+    print("Upload file called")
     if request.method == 'POST' and request.FILES.get('file'):
         uploaded_file = request.FILES['file']
         file_contents = uploaded_file.read().decode('utf-8')  # adjust encoding if needed
 
-        # Call your function
         result = parse_plan(file_contents)
         return JsonResponse({'response': result})
 
