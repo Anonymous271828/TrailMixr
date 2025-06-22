@@ -8,6 +8,7 @@ import requests
 import rasterio
 import numpy as np
 import geopandas as gpd
+from google import genai
 from scipy.stats import binned_statistic_2d
 from itertools import combinations
 
@@ -19,12 +20,12 @@ class Calculate:
     DISTANCE_THRESH_FOR_EVENTS = 40
 
     def __init__(self):
-        self.ontario_forests = gpd.read_file("backend/additional/ontario_forests_dir/FRI_Tile_Index.shp").to_crs(32617)
-        self.ontario_trails = gpd.read_file("backend/additional/Non_Sensitive.gdb").to_crs(32617)
-        self.ontario_parks = gpd.read_file("backend/additional/ontario_trails_dir/PROV_PARK_REGULATED.shp").to_crs(32617)
-        self.algonquin_campsites = gpd.read_file("backend/additional/jeffs_maps/campsites.shp").to_crs(32617)
-        self.topography = gpd.read_file("backend/additional/elevation/ONT_ELEVATION_DATA_INDEX.shp").to_crs(32617)
-        self.events = gpd.read_file("backend/additional/jeffs_maps/campsites.shp").to_crs(32617).translate(xoff=100, yoff=-100)
+        self.ontario_forests = gpd.read_file("additional/ontario_forests_dir/FRI_Tile_Index.shp").to_crs(32617)
+        self.ontario_trails = gpd.read_file("additional/Non_Sensitive.gdb").to_crs(32617)
+        self.ontario_parks = gpd.read_file("additional/ontario_trails_dir/PROV_PARK_REGULATED.shp").to_crs(32617)
+        self.algonquin_campsites = gpd.read_file("additional/jeffs_maps/campsites.shp").to_crs(32617)
+        self.topography = gpd.read_file("additional/elevation/ONT_ELEVATION_DATA_INDEX.shp").to_crs(32617)
+        self.events = gpd.read_file("additional/jeffs_maps/campsites.shp").to_crs(32617).translate(xoff=100, yoff=-100)
 
         self.days = max(0, 5)
 
@@ -450,6 +451,12 @@ def main():
 
     p = pdal.Pipeline(json.dumps(pipeline))
     p.execute()
+
+client = genai.Client(api_key="YOUR_API_KEY")
+
+response = client.models.generate_content(
+    model="gemini-2.5-flash", contents="Explain how AI works in a few words"
+)
 
 # c = Calculate()
 # c.select_trail(name="Algonquin Provincial Park Canoe Routes")
