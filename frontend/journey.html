@@ -29,9 +29,9 @@
             </div>
             <div style="display: flex; justify-content: center; margin-top: 15px; gap: 10px;">
                 <button class="button-bg" style="width: 250px !important;">Plan This Journey</button>
-                <input type="file" id="fileInput" />
-                <button class="button-border" onclick="uploadFile()" style="width: 250px !important;">Upload Existing Journey</button>
-                <pre id="response"></pre>
+                <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect()" />
+                <button id="customUploadBtn" class="button-border" onclick="uploadFile()" style="width: 250px !important;">Upload Existing
+                    Journey</button>
             </div>
             <div
                 style="display: flex; gap: 70px; align-items: center; justify-content: center; padding-top: 50px; padding-bottom: 25px;">
@@ -50,8 +50,7 @@
             </div>
 
             <div style="display: flex; justify-content: center; align-items: center; gap: 40px; width: 100%">
-                <iframe
-                    style="width: 100% !important; border: none;"
+                <iframe style="width: 100% !important; border: none;"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2822.961053625958!2d-80.3181326844606!3d43.37902297913151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882c88e5274e8371%3A0x8d7a14eb9b3b3d5e!2sCambridge%20ON!5e0!3m2!1sen!2sca!4v1718999999999!5m2!1sen!2sca"
                     height="350" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade">
@@ -733,6 +732,19 @@
             // const result = await response.json();
             console.log(response);
             // document.getElementById('response').textContent = result.response || result.error;
+        }
+
+        document.getElementById('customUploadBtn').addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+
+        function handleFileSelect() {
+            const file = document.getElementById('fileInput').files[0];
+            if (file) {
+                console.log("Selected file:", file.name);
+                // Optionally call uploadFile() here
+                uploadFile();
+            }
         }
 
         window.onload = async () => {
