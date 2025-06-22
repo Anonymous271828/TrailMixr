@@ -472,8 +472,28 @@ def parse_plan(plan_contents):
                                             """
     )
 
-    print(response.text)
+    coords_in = response[:response.index("@")]
+    coords_time = response[response.index("@")+1:response.index("#")]
+    response = response[response.index("#")+1:]
 
+    coords_in = [int(x) for x in coords_in.split("|")]
+    coords_out = [int(x) for x in coords_time.split("|")]
+    response = [int(x) for x in response.split("|")]
+
+    global calculate
+    calculate.stops = coords_in
+    calculate.distances_along_trail = response[0]
+    calculate.speed = response[1]
+    calculate.hours = response[2]
+
+    calculate.select_trail(name="Algonquin Provincial Park Canoe Routes")
+    weather = Weather(response[3], response[4], response[5])
+    x,y,z = calculate.extract_data()
+    k = calculate.overlay_weather_over_veg_secondary(x, weather.score_each_hour(), y,z)
+    
+
+
+calculate = Calculate()
 # client = genai.Client(api_key="YOUR_API_KEY")
 
 # response = client.models.generate_content(
