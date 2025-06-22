@@ -1,5 +1,5 @@
 import numpy as np
-from main import Calculate, Weather
+from api.main import Calculate, Weather
 
 calculate = Calculate()
 calculate.select_trail("Algonquin Provincial Park Canoe Routes")
