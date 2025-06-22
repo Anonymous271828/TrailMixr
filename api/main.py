@@ -372,8 +372,11 @@ class Weather:
         hourly_score = []
         data = response.json()
         for i in range(48):
+            if data['code'] == 429001: # rate limit
+                break
             v = data["data"]["timelines"][0]["intervals"][i]["values"]
-            hourly_score.append(self.score_hour(v))
+            hourly_score.append(
+                (self.score_hour(v), v))
 
         return hourly_score
 
@@ -450,9 +453,13 @@ def main():
 
 # c = Calculate()
 # c.select_trail(name="Algonquin Provincial Park Canoe Routes")
+<<<<<<< HEAD:backend/main.py
 # weather = Weather(1, 45.0, -79.0)
 # x,y,z = c.extract_data()
 # c.overlay_weather_over_veg(x, weather.score_each_hour(), y,z)
+=======
+# c.extract_data()
+>>>>>>> 49288d0ae1311ab3637689577bc1ed7f609a0d63:api/main.py
 # c.organize_events("Algonquin Provincial Park Canoe Routes")
 #c.extract_topographical_data()
 
