@@ -142,7 +142,15 @@ class Calculate:
         veg_points = arrays[np.isin(arrays['Classification'], [4, 5])]
         low_veg_points = arrays[arrays['Classification'] == 3]
 
-        veg_density = len(veg_points) / buffered_trail.area.sum()
+        x = veg_points['X']
+        y = veg_points['Y']
+
+        res = 1
+        x_min, x_max = x.min(), x.max()
+        y_min, y_max = y.min(), y.max()
+
+        x_bins = np.arange(x_min, x_max + res, res)
+        y_bins = np.arange(y_min, y_max + res, res)
 
 
     def get_copc_laz(self):
