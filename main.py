@@ -50,7 +50,6 @@ class Calculate:
 
             distance_along_path = distance_along_path.sort_values(ascending=True)
             indexes = distance_along_path.index.tolist()
-            print(distance)
             for i, j in enumerate(distance_along_path):
                 self.selected_campsites.append(Campsite(indexes[i], j, distance.loc[indexes[i]]))
 
@@ -58,7 +57,6 @@ class Calculate:
             self.ontario_parks = self.ontario_parks[self.ontario_parks["PARK_NAME"].str.contains(name, case=False, na=False)]
 
     def organize_events(self, events):
-        print(self.events)
         # FOR WHEN WE ACTUALLY GET A DATASET
         #self.events = self.events[self.events["TRAIL_NAME"].str.contains("|".join(events), case=False, na=False)]
         
@@ -111,13 +109,48 @@ class Calculate:
         else:
             raise TypeError("Geometry must be LineString or MultiLineString")
         
-    def extract_topographical_data(self):
+    def extract_data(self):
+        buffered_trail = self.selected_trail.buffer(10)
+
+        pipeline = {
+            "pipeline": [
+                {
+                    "type": "readers.las",
+                    "filename": "/Volumes/STORAGES/test.copc.laz"
+                },
+                {
+                    "type": "filters.crop",
+                    "polygon": buffered_trail.unary_union.wkt
+                },
+                {
+                    "type": "filters.range",
+                    "limits": "Classification[1:7]"
+                },
+                {
+                    "type": "writers.las",
+                    "filename": "trail_buffered.laz"
+                }
+            ]
+        }
+
+        pipeline_json = json.dumps(pipeline)
+        pipeline = pdal.Pipeline(pipeline_json)
+        pipeline.execute()
+        
+        arrays = pipeline.arrays[0]
+        print(arrays)
+        veg_points = arrays[np.isin(arrays['Classification'], [4, 5])]
+        low_veg_points = arrays[arrays['Classification'] == 3]
+
+        veg_density = len(veg_points) / buffered_trail.area.sum()
+
+
+    def get_copc_laz(self):
         API_PATTERN = "https://download.fri.mnrf.gov.on.ca/api/api/Download/geohub/laz/utm16/1kmZ164040565102023L.copc.laz"
         intersection = self.ontario_forests[self.ontario_forests.intersects(self.selected_trail.union_all())]
         # for i in intersection["Tilename"]:
         #     if not os.path.isfile("additiona/forestry_map/{}.copc.laz".format(i)):
         #         requests.get("https://download.fri.mnrf.gov.on.ca/api/api/Download/geohub/laz/utm16/{}.copc.laz".format(i)).content
-
 
         
 class Campsite:
@@ -214,7 +247,6 @@ class Weather:
         response = requests.get(self.url, params=params)
         hourly_score = []
         data = response.json()
-        print(data)
         for i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]:
             v = data["data"]["timelines"][0]["intervals"][i]["values"]
             hourly_score.append(self.score_hour(v))
@@ -292,10 +324,11 @@ def main():
     p = pdal.Pipeline(json.dumps(pipeline))
     p.execute()
 
-# c = Calculate()
-# c.select_trail(name="Algonquin Provincial Park Canoe Routes")
+c = Calculate()
+c.select_trail(name="Algonquin Provincial Park Canoe Routes")
+c.extract_data()
 # c.organize_events("Algonquin Provincial Park Canoe Routes")
 #c.extract_topographical_data()
 
-w = Weather(1, 45.0, -79.0)
-w.score_each_hour()
+# w = Weather(1, 45.0, -79.0)
+# w.score_each_hour()
