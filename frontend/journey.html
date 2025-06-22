@@ -29,7 +29,9 @@
             </div>
             <div style="display: flex; justify-content: center; margin-top: 15px; gap: 10px;">
                 <button class="button-bg" style="width: 250px !important;">Plan This Journey</button>
-                <button class="button-border" style="width: 250px !important;">Upload Existing Journey</button>
+                <input type="file" id="fileInput" />
+                <button class="button-border" onclick="uploadFile()" style="width: 250px !important;">Upload Existing Journey</button>
+                <pre id="response"></pre>
             </div>
             <div
                 style="display: flex; gap: 70px; align-items: center; justify-content: center; padding-top: 50px; padding-bottom: 25px;">
@@ -710,6 +712,26 @@
             }
         }
 
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert("Please select a file first");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch('/upload/', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+            document.getElementById('response').textContent = result.response || result.error;
+        }
 
         window.onload = async () => {
             const params = new URLSearchParams(window.location.search);

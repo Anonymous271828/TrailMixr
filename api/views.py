@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from .main import *
 
 def score_each_hour_api(request):
@@ -27,3 +28,16 @@ def score_each_hour_api(request):
 def test_get_all_trails(request):
     c = Calculate()
     return JsonResponse({"trails": c.get_trails()})
+
+
+@csrf_exempt
+def upload_file(request):
+    if request.method == 'POST' and request.FILES.get('file'):
+        uploaded_file = request.FILES['file']
+        file_contents = uploaded_file.read().decode('utf-8')  # adjust encoding if needed
+
+        # Call your function
+        result = parse_plan(file_contents)
+        return JsonResponse({'response': result})
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
