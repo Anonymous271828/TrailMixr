@@ -1,10 +1,14 @@
 import os
 import pdal
 import json
+import rasterio.features
+import rasterio.transform
 import shapely
 import requests
+import rasterio
 import numpy as np
 import geopandas as gpd
+from scipy.stats import binned_statistic_2d
 from itertools import combinations
 
 API_KEY = "kLyjHKWOs4w8hDq4PFc7QZxPyF1OgNRh"
@@ -15,12 +19,12 @@ class Calculate:
     DISTANCE_THRESH_FOR_EVENTS = 40
 
     def __init__(self):
-        self.ontario_forests = gpd.read_file("additional/ontario_forests_dir/FRI_Tile_Index.shp").to_crs(32617)
-        self.ontario_trails = gpd.read_file("additional/Non_Sensitive.gdb").to_crs(32617)
-        self.ontario_parks = gpd.read_file("additional/ontario_trails_dir/PROV_PARK_REGULATED.shp").to_crs(32617)
-        self.algonquin_campsites = gpd.read_file("additional/jeffs_maps/campsites.shp").to_crs(32617)
-        self.topography = gpd.read_file("additional/elevation/ONT_ELEVATION_DATA_INDEX.shp").to_crs(32617)
-        self.events = gpd.read_file("additional/jeffs_maps/campsites.shp").to_crs(32617).translate(xoff=100, yoff=-100)
+        self.ontario_forests = gpd.read_file("backend/additional/ontario_forests_dir/FRI_Tile_Index.shp").to_crs(32617)
+        self.ontario_trails = gpd.read_file("backend/additional/Non_Sensitive.gdb").to_crs(32617)
+        self.ontario_parks = gpd.read_file("backend/additional/ontario_trails_dir/PROV_PARK_REGULATED.shp").to_crs(32617)
+        self.algonquin_campsites = gpd.read_file("backend/additional/jeffs_maps/campsites.shp").to_crs(32617)
+        self.topography = gpd.read_file("backend/additional/elevation/ONT_ELEVATION_DATA_INDEX.shp").to_crs(32617)
+        self.events = gpd.read_file("backend/additional/jeffs_maps/campsites.shp").to_crs(32617).translate(xoff=100, yoff=-100)
 
         self.days = max(0, 5)
 
@@ -31,6 +35,13 @@ class Calculate:
         self.schedule = []
         self.lat, self.long = None, None
         self.combined = []
+
+
+        # ALL SECONDARY VARIABLES
+        self.stops = []
+        self.distances_along_trail = 3500
+        self.speed = 1.29
+        self.hours = 24
 
 
     def select_trail(self, name=None, park=None, bbox=None):
@@ -91,12 +102,22 @@ class Calculate:
                         temp_weather.find_sunrise(), 
                         temp_weather.score_each_hour()
                         ))
+            smallest_var = 100000
+            combo = 0
             for i in combinations(self.selected_campsites, days):
-                for a,b in enumerate(i):
-                    self.schedule[a].stop = b
-                ### Code here
-                    weather = Weather(a, self.lat, self.long, self.extract_legs(trail))
-                    self.schedule[a].change_hour(1, True)
+                variance = self.calc_var([i[j] - i[j+1] for j in range(len(i)-1)])
+                if variance < smallest_var:
+                    smallest_var = variance
+                    combo = i
+
+    def index_campsites(self, campsites, campsite_hours):
+        if not self.selected_campsites:
+            raise ValueError("No campsites selected. Please select campsites first.")
+        self.stops = []
+        for i in range(len(self.selected_campsites) - 1):
+            if self.selected_campsites[i] in campsites:
+                x = self.selected_campsites[i]
+                self.stops.append(Event(x.index, x.distance_along_path, x.distance_from_trail, campsite_hours[i]))
 
     def extract_legs(self, trail):
         if isinstance(trail, shapely.geometry.LineString):
@@ -110,25 +131,27 @@ class Calculate:
             raise TypeError("Geometry must be LineString or MultiLineString")
         
     def extract_data(self):
-        buffered_trail = self.selected_trail.buffer(10)
-
+        buffered_trail = self.selected_trail.buffer(50)
+        a,b,c,d = buffered_trail.bounds.values.tolist()[0]
         pipeline = {
             "pipeline": [
                 {
                     "type": "readers.las",
-                    "filename": "/Volumes/STORAGES/test.copc.laz"
+                    "filename": "/Volumes/STORAGES/case_study.copc.laz"
                 },
                 {
                     "type": "filters.crop",
-                    "polygon": buffered_trail.unary_union.wkt
+                    #"bounds": "([{},{}],[{},{}])".format(a,b,c,d),
+                    "polygon": buffered_trail.unary_union.wkt 
                 },
                 {
                     "type": "filters.range",
-                    "limits": "Classification[1:7]"
+                    "limits": "Classification[1:7]" 
                 },
                 {
                     "type": "writers.las",
-                    "filename": "trail_buffered.laz"
+                    "filename": "trail_buffered.laz",
+                    "extra_dims": "all" 
                 }
             ]
         }
@@ -140,8 +163,10 @@ class Calculate:
         arrays = pipeline.arrays[0]
         print(arrays)
         veg_points = arrays[np.isin(arrays['Classification'], [4, 5])]
-        low_veg_points = arrays[arrays['Classification'] == 3]
+        #low_veg_points = arrays[arrays['Classification'] == 3]
 
+        buffer = buffered_trail.union_all()
+        
         x = veg_points['X']
         y = veg_points['Y']
 
@@ -149,9 +174,43 @@ class Calculate:
         x_min, x_max = x.min(), x.max()
         y_min, y_max = y.min(), y.max()
 
-        x_bins = np.arange(x_min, x_max + res, res)
-        y_bins = np.arange(y_min, y_max + res, res)
+        x_edges = np.arange(x_min, x_max + res, res)
+        y_edges = np.arange(y_min, y_max + res, res)
 
+        x_bins = len(x_edges) - 1
+        y_bins = len(y_edges) - 1
+
+        veg_density_grid, _, _, _ = binned_statistic_2d(
+            x, y, None, statistic='count',
+            bins=[x_edges, y_edges]
+        )
+
+        xx, yy = np.meshgrid(
+            x_edges[:-1] + res / 2,
+            y_edges[:-1] + res / 2
+        )
+
+        transform = rasterio.transform.from_origin(
+            x_min,
+            y_max,
+            res,
+            res 
+        )
+        
+        buffer_geojson = shapely.geometry.mapping(buffer)
+
+        mask = rasterio.features.geometry_mask(
+            [buffer_geojson],
+            out_shape=veg_density_grid.shape,
+            transform=transform,
+            invert=True 
+        )
+
+        veg_density_grid[~mask] = np.nan 
+
+        veg_density_grid = (veg_density_grid - 45)/4 # CONSTANTS
+        print("AAAAA")
+        return veg_density_grid, xx, yy
 
     def get_copc_laz(self):
         API_PATTERN = "https://download.fri.mnrf.gov.on.ca/api/api/Download/geohub/laz/utm16/1kmZ164040565102023L.copc.laz"
@@ -160,7 +219,64 @@ class Calculate:
         #     if not os.path.isfile("additiona/forestry_map/{}.copc.laz".format(i)):
         #         requests.get("https://download.fri.mnrf.gov.on.ca/api/api/Download/geohub/laz/utm16/{}.copc.laz".format(i)).content
 
+    def overlay_weather_over_veg(self, veg_density_grid, weather_scores, xx, yy):
+        trail = self.selected_trail.union_all()
+        points_flat = [shapely.geometry.Point(x, y) for x, y in zip(xx.flatten(), yy.flatten())]
+        print(len(points_flat))
+        #distances_along_trail = shapely.line_locate_point(trail, points_flat)
+        distances_along_trail = 35000
+        print("AAAAAA")
+        time_in_seconds = distances_along_trail / 1.39
+        time_in_hours = min(16, time_in_seconds / 3600)
+
+        weather_array = np.array([
+        weather_scores[hour] for hour in range(int(time_in_hours))
+        ])
+
+        weather_array = np.repeat(weather_array, np.floor(len(veg_density_grid.flatten())/len(weather_array)))
+        if len(weather_array) < len(veg_density_grid.flatten()):
+            weather_array = np.append(weather_array, [weather_array[-1]] * (len(veg_density_grid.flatten()) - len(weather_array)))
+        diff_array = abs(veg_density_grid.flatten() - weather_array)
+        diff_grid = diff_array.reshape(veg_density_grid.shape)
+
+        print(diff_grid)
         
+    def overlay_weather_over_veg_secondary(self, veg_density_grid, weather_scores, xx, yy):
+        trail = self.selected_trail.union_all()
+        points_flat = [shapely.geometry.Point(x, y) for x, y in zip(xx.flatten(), yy.flatten())]
+
+
+        weather_array = np.array([
+        weather_scores[hour] for hour in range(int(self.hours))
+        ])
+
+        compensator = self.hours - sum([x.hours for x in self.stops])
+        grid_to_weather = len(veg_density_grid.flatten()) // compensator
+
+        weather_array = np.repeat(weather_array, grid_to_weather)
+        if len(weather_array) < len(veg_density_grid.flatten()):
+            weather_array = np.append(weather_array, [weather_array[-1]] * (len(veg_density_grid.flatten()) - len(weather_array)))
+        
+        for i in range(len(self.stops)):
+            for j in range(1, self.hours):
+                if self.stops[i].distance_along_path < self.distances_along_trail / compensator * j:
+                    change_points = np.where(weather_array[:-1] != weather_array[1:])[0] + 1
+                    groups = np.split(weather_array, change_points)
+                    groups[j] = groups[j][:-self.stops[i].hours * grid_to_weather]
+                    weather_array = np.concatenate(groups)
+            
+        
+        
+        diff_array = abs(veg_density_grid.flatten() - weather_array)
+        diff_grid = diff_array.reshape(veg_density_grid.shape)
+
+        return diff_grid
+    
+    def calc_var(self, dataset):
+        mean = sum(dataset) / len(dataset)
+        variance = sum((x - mean) ** 2 for x in dataset) / len(dataset)
+        return variance
+
 class Campsite:
     def __init__(self, index, distance_along_path, distance_from_trail):
         self.index = index
@@ -255,7 +371,7 @@ class Weather:
         response = requests.get(self.url, params=params)
         hourly_score = []
         data = response.json()
-        for i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]:
+        for i in range(48):
             v = data["data"]["timelines"][0]["intervals"][i]["values"]
             hourly_score.append(self.score_hour(v))
 
@@ -332,9 +448,11 @@ def main():
     p = pdal.Pipeline(json.dumps(pipeline))
     p.execute()
 
-c = Calculate()
-c.select_trail(name="Algonquin Provincial Park Canoe Routes")
-c.extract_data()
+# c = Calculate()
+# c.select_trail(name="Algonquin Provincial Park Canoe Routes")
+# weather = Weather(1, 45.0, -79.0)
+# x,y,z = c.extract_data()
+# c.overlay_weather_over_veg(x, weather.score_each_hour(), y,z)
 # c.organize_events("Algonquin Provincial Park Canoe Routes")
 #c.extract_topographical_data()
 
