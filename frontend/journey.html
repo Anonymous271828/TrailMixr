@@ -30,7 +30,7 @@
             <div style="display: flex; justify-content: center; margin-top: 15px; gap: 10px;">
                 <button class="button-bg" style="width: 250px !important;">Plan This Journey</button>
                 <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect()" />
-                <button id="customUploadBtn" class="button-border" onclick="uploadFile()" style="width: 250px !important;">Upload Existing
+                <button id="customUploadBtn" class="button-border" style="width: 250px !important;">Upload Existing
                     Journey</button>
             </div>
             <div
@@ -716,7 +716,6 @@
             const file = fileInput.files[0];
 
             if (!file) {
-                alert("Please select a file first");
                 return;
             }
 

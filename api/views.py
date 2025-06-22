@@ -20,7 +20,7 @@ def score_each_hour_api(request):
     except ValueError:
         return JsonResponse({"error": "Invalid lat, long or date"}, status=400)
 
-    weather = Weather(date, lat, long)
+    weather = Weather(date, lat, long, 0)
     scores = weather.score_each_hour()
     return JsonResponse({"scores": scores})
 
