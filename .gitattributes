@@ -2,3 +2,8 @@
 *.shp filter=lfs diff=lfs merge=lfs -text
 *.dbf filter=lfs diff=lfs merge=lfs -text
 additional/ filter=lfs diff=lfs merge=lfs -text
+additional/*.shp filter=lfs diff=lfs merge=lfs -text
+additional/ontario_forests_dir/*.shp filter=lfs diff=lfs merge=lfs -text
+additional/ontario_parks_dir/r/*.shp filter=lfs diff=lfs merge=lfs -text
+additional/ontario_trails_dir/r/*.shp filter=lfs diff=lfs merge=lfs -text
+additional/ontario_trails_v2/r/*.shp filter=lfs diff=lfs merge=lfs -text
