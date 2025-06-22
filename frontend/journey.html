@@ -14,12 +14,12 @@
     <div id="header-placeholder"></div>
 
     <main>
-        <section style="height: 420vh;">
+        <section style="height: 470vh;">
             <div style="position: absolute; top: 112px;">
                 <button class="button-border"
                     style="border: none !important; width: 150px !important; height: 40px !important;"
-                    onclick="window.location.href='journeys.html'">
-                    < Back to Journeys</button>
+                    onclick="window.location.href='locations.html'">
+                    < Back to Locations</button>
             </div>
             <div id="journey-name" class="heading" style="justify-content: center !important; padding-top: 35px;">Shades
                 Mill</div>
@@ -27,11 +27,12 @@
                 style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: -10px;">
                 Cambridge ON, Canada - N1R 123
             </div>
-            <div style="display: flex; justify-content: center; margin-top: 15px;">
-                <button class="button-bg" style="width: 353px !important;">Plan This Journey</button>
+            <div style="display: flex; justify-content: center; margin-top: 15px; gap: 10px;">
+                <button class="button-bg" style="width: 250px !important;">Plan This Journey</button>
+                <button class="button-border" style="width: 250px !important;">Upload Existing Journey</button>
             </div>
             <div
-                style="display: flex; gap: 70px; align-items: center; justify-content: center; padding-top: 50px; padding-bottom: 55px;">
+                style="display: flex; gap: 70px; align-items: center; justify-content: center; padding-top: 50px; padding-bottom: 25px;">
                 <div class="journey-stat">
                     <div class="title">0</div>
                     <div class="info">FISH</div>
@@ -46,35 +47,16 @@
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px;">
-                <div>
-                    <div class="title" style="font-size: 45px;">Hours</div>
-                    <div class="hours-grid">
-                        <div>Sunday:</div>
-                        <div>1:00am - 4:00pm</div>
-                        <div>Monday:</div>
-                        <div>1:00am - 4:00pm</div>
-                        <div>Tuesday:</div>
-                        <div>1:00am - 4:00pm</div>
-                        <div>Wednesday:</div>
-                        <div>1:00am - 4:00pm</div>
-                        <div>Thursday:</div>
-                        <div>1:00am - 4:00pm</div>
-                        <div>Friday:</div>
-                        <div>1:00am - 4:00pm</div>
-                        <div>Saturday:</div>
-                        <div>1:00am - 4:00pm</div>
-                    </div>
-                </div>
-
+            <div style="display: flex; justify-content: center; align-items: center; gap: 40px; width: 100%">
                 <iframe
+                    style="width: 100% !important; border: none;"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2822.961053625958!2d-80.3181326844606!3d43.37902297913151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882c88e5274e8371%3A0x8d7a14eb9b3b3d5e!2sCambridge%20ON!5e0!3m2!1sen!2sca!4v1718999999999!5m2!1sen!2sca"
-                    width="800" height="350" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"
+                    height="350" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
 
-            <div class="title" style="font-size: 45px; padding-top: 10px;">Reviews</div>
+            <div class="title" style="font-size: 45px; padding-top: 70px;">Reviews</div>
             <div class="horizontal-scroll">
                 <div class="review-card">
                     <div
@@ -742,19 +724,18 @@
             console.log("Weather is", weather);
 
             const weatherDivList = document.getElementById("weather-list");
-            weatherDivList.innerHTML = ``;
+            weatherDivList.innerHTML = '';
 
-            for (const hour of weather) {
+            for (const [key, hour] of Object.entries(weather)) {
                 const weatherCard = document.createElement('div');
                 const weatherInfo = hour["1"];
-                const hourOffset = parseInt(hour["0"], 10);
-                const displayHour = (hourOffset % 12 === 0 ? 12 : hourOffset % 12);
-                const period = hourOffset < 12 ? "AM" : "PM";
+                const hourOffset = parseInt(key, 10);
+                const day = Math.floor(hourOffset / 24) + 1;
+                console.log(hourOffset);
 
-                weatherCard.className = 'weather-card';
                 weatherCard.innerHTML = `
             <div class="weather-card">
-                <div class="info2" style="padding-top: 10px;">${displayHour}:00 ${period}</div>
+                <div class="info2" style="padding-top: 10px;"> Day ${day} - ${hourOffset.toString().padStart(2, '0')}:00</div>
                 <div class="title">${weatherInfo.temperature}°C</div>
                 <div class="info">EXTREME WEATHER</div>
                 <div style="height: 30px;"></div>

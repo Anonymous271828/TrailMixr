@@ -22,3 +22,8 @@ def score_each_hour_api(request):
     weather = Weather(date, lat, long)
     scores = weather.score_each_hour()
     return JsonResponse({"scores": scores})
+
+
+def test_get_all_trails(request):
+    c = Calculate()
+    return JsonResponse({"trails": c.get_trails()})
