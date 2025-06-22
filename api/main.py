@@ -11,9 +11,12 @@ import geopandas as gpd
 from google import genai
 from scipy.stats import binned_statistic_2d
 from itertools import combinations
+from dotenv import load_dotenv
 
-API_KEY = "kLyjHKWOs4w8hDq4PFc7QZxPyF1OgNRh"
+load_dotenv()
 
+API_KEY = os.getenv("API_KEY_TOMORROW")
+GEMINI_KEY = os.getenv("API_KEY")
 class Calculate:
 
     DISTANCE_THRESH = 40
@@ -43,6 +46,7 @@ class Calculate:
         self.distances_along_trail = 3500
         self.speed = 1.29
         self.hours = 24
+        self.veg_grad = None
 
 
     def select_trail(self, name=None, park=None, bbox=None):
@@ -96,7 +100,7 @@ class Calculate:
             return []
         else:
             for i in range(days):
-                temp_weather = Weather(i, self.lat, self.long)
+                temp_weather = Weather(i, self.lat, self.long, 0)
                 self.schedule.append(
                     Day(
                         temp_weather.find_sunset(), 
@@ -211,6 +215,9 @@ class Calculate:
 
         veg_density_grid = (veg_density_grid - 45)/4 # CONSTANTS
         print("AAAAA")
+
+
+        
         return veg_density_grid, xx, yy
 
     def get_copc_laz(self):
@@ -271,7 +278,7 @@ class Calculate:
         diff_array = abs(veg_density_grid.flatten() - weather_array)
         diff_grid = diff_array.reshape(veg_density_grid.shape)
 
-        return diff_grid
+        return diff_grid, 
     
     def calc_var(self, dataset):
         mean = sum(dataset) / len(dataset)
@@ -309,11 +316,12 @@ class Event:
         self.location = location
     
 class Weather:
-    def __init__(self, date, lat, long, legs=None):
+    def __init__(self, date, lat, long, length, legs=None):
         self.url = "https://api.tomorrow.io/v4/timelines"
         self.date = date
         self.lat = lat
         self.long = long
+        self.length = length
 
 
         if legs is not None:
@@ -363,7 +371,7 @@ class Weather:
     
     def score_each_hour(self):
         params = {
-            "location": f"{self.lat},{self.long}",  # Latitude,Longitude
+            "location": f"{self.lat},{self.long}", 
             "fields": ["temperature", "precipitationIntensity", "windSpeed", "humidity", "cloudCover", "dewPoint", "visibility", "weatherCode"],
             "timesteps": "1h", 
             "units": "metric",
@@ -372,7 +380,7 @@ class Weather:
         response = requests.get(self.url, params=params)
         hourly_score = []
         data = response.json()
-        for i in range(48):
+        for i in range(self.length*24):
             if data['code'] == 429001: # rate limit
                 break
             v = data["data"]["timelines"][0]["intervals"][i]["values"]
@@ -386,11 +394,11 @@ class Weather:
 
     def find_sunrise(self):
         params = {
-            "location": f"{self.lat},{self.long}",  # Latitude,Longitude
+            "location": f"{self.lat},{self.long}", 
             "fields": "sunriseTime",
-            "timesteps": "1d",  # Daily data
+            "timesteps": "1d",
             "units": "metric",
-            "apikey": API_KEY  # Replace with your actual API key
+            "apikey": API_KEY 
         }
         response = requests.get(self.url, params=params)
         data = response.json()
@@ -407,11 +415,11 @@ class Weather:
 
     def find_sunset(self):
         params = {
-            "location": f"{self.lat},{self.long}",  # Latitude,Longitude
+            "location": f"{self.lat},{self.long}",
             "fields": "sunsetTime",
-            "timesteps": "1d",  # Daily data
+            "timesteps": "1d", 
             "units": "metric",
-            "apikey": API_KEY  # Replace with your actual API key
+            "apikey": API_KEY 
         }
         response = requests.get(self.url, params=params)
         data = response.json()
@@ -430,21 +438,21 @@ def main():
         {
             "type": "readers.las",
             "filename": "your_file.copc.laz",
-            "spatialreference": "EPSG:32617"  # change to match your data
+            "spatialreference": "EPSG:32617"
         },
         {
             "type": "filters.crop",
-            "bounds": "([500000, 501000],[5100000,5101000])"  # your AOI bbox in map units
+            "bounds": "([500000, 501000],[5100000,5101000])"
         },
         {
             "type": "filters.range",
-            "limits": "Classification[2:2]"  # class 2 = ground
+            "limits": "Classification[2:2]" 
         },
         {
             "type": "writers.gdal",
             "filename": "dtm.tif",
             "resolution": 1.0,
-            "output_type": "min",  # min Z value per pixel (ground surface)
+            "output_type": "min",
             "data_type": "float"
         }
     ]
@@ -452,11 +460,16 @@ def main():
     p = pdal.Pipeline(json.dumps(pipeline))
     p.execute()
 
-client = genai.Client(api_key="YOUR_API_KEY")
+def parse_plan(plan_contents):
+    client = genai.Client(api_key=GEMINI_KEY)
 
-response = client.models.generate_content(
-    model="gemini-2.5-flash", contents="Explain how AI works in a few words"
-)
+    response = client.models.generate_content(
+        model="gemini-2.5-flash", contents="""
+        Parse this 
+                                            """
+    )
+
+    print(response.text)
 
 # c = Calculate()
 # c.select_trail(name="Algonquin Provincial Park Canoe Routes")
