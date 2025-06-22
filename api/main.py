@@ -217,7 +217,7 @@ class Calculate:
         print("AAAAA")
 
 
-        
+
         return veg_density_grid, xx, yy
 
     def get_copc_laz(self):
@@ -461,6 +461,9 @@ def main():
     p.execute()
 
 def parse_plan(plan_contents):
+    # contents will contain the file contents upload
+    # user input is very risky so ensure nothing can go wrong
+    # like the user can prompt gemini
     client = genai.Client(api_key=GEMINI_KEY)
 
     response = client.models.generate_content(
@@ -470,6 +473,12 @@ def parse_plan(plan_contents):
     )
 
     print(response.text)
+
+# client = genai.Client(api_key="YOUR_API_KEY")
+
+# response = client.models.generate_content(
+#     model="gemini-2.5-flash", contents="Explain how AI works in a few words"
+# )
 
 # c = Calculate()
 # c.select_trail(name="Algonquin Provincial Park Canoe Routes")
