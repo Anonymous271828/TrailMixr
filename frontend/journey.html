@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TrailMixr</title>
     <link rel="stylesheet" href="style.css" />
+    <script type="module" src="scripts/main.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
@@ -13,14 +14,15 @@
     <div id="header-placeholder"></div>
 
     <main>
-        <section style="height: 315vh;">
+        <section style="height: 365vh;">
             <div style="position: absolute; top: 112px;">
                 <button class="button-border"
                     style="border: none !important; width: 150px !important; height: 40px !important;"
                     onclick="window.location.href='journeys.html'">
                     < Back to Journeys</button>
             </div>
-            <div id="journey-name" class="heading" style="justify-content: center !important; padding-top: 35px;">Shades Mill</div>
+            <div id="journey-name" class="heading" style="justify-content: center !important; padding-top: 35px;">Shades
+                Mill</div>
             <div id="journey-loc" class="header-description"
                 style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: -10px;">
                 Cambridge ON, Canada - N1R 123
@@ -561,6 +563,38 @@
             </div>
 
             <div class="title" style="font-size: 45px; padding-top: 55px;">Weather Forecast</div>
+            <div id="weather-list"" class=" horizontal-scroll">
+                <div class="weather-card">
+                    <div class="info2" style="padding-top: 10px;">12:00 AM</div>
+                    <div class="title">30°C</div>
+                    <div class="info">EXTREME WEATHER</div>
+                    <div style="height: 30px;"></div>
+
+                    <div class="info2"
+                        style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
+                        <span>Visibility:</span><span>16</span>
+                    </div>
+                    <div class="info2"
+                        style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
+                        <span>Wind Speed:</span><span>4.2</span>
+                    </div>
+                    <div class="info2"
+                        style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
+                        <span>Humidity:</span><span>35</span>
+                    </div>
+                    <div class="info2"
+                        style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
+                        <span>Dew Point:</span><span>13.6</span>
+                    </div>
+                    <div class="info2"
+                        style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
+                        <span>Cloud Cover:</span><span>55</span>
+                    </div>
+                </div>
+            </div>
+
+
+
             <div class="title" style="font-size: 45px; padding-top: 55px;">Location Elevation</div>
             <div class="title" style="font-size: 45px; padding-top: 55px;">Photo Gallery (7)</div>
             <div class="horizontal-scroll">
@@ -603,13 +637,79 @@
         }
 
         const name = getQueryParam('name');
-        const loc= getQueryParam('location');
+        const loc = getQueryParam('location');
 
-        if (name && loc)
-        {
+        if (name && loc) {
             document.getElementById('journey-name').textContent = name;
             document.getElementById('journey-loc').textContent = loc;
             // document.getElementById('journey-image').src = `assets/images/${name.toLowerCase().replace(/\s+/g, '-')}.jpg`;
-        }        
+        }
+
+        async function getHourlyScores(lat, long, date) {
+            const url = `http://127.0.0.1:8000/api/score_each_hour/?lat=${lat}&long=${long}&date=${date}`;
+
+            console.log("getting hourly scores:");
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                return data.scores;
+            } catch (error) {
+                console.log("failed");
+                console.error(error);
+                return null;
+            }
+        }
+
+
+        window.onload = async () => {
+            const params = new URLSearchParams(window.location.search);
+            const name = params.get('name');
+            const location = params.get('location');
+            const lat = parseFloat(params.get('lat'));
+            const long = parseFloat(params.get('long'));
+
+            console.log("Got journey params:", name, location, lat, long);
+
+            const weather = await getHourlyScores(lat, long, 1);
+            console.log("Weather is", weather);
+
+            const weatherDivList = document.getElementById("weather-list");
+            weatherDivList.innerHTML = ``;
+
+            for (const hour of weather) {
+                const weatherCard = document.createElement('div');
+                const weatherInfo = hour["1"];
+                const hourOffset = parseInt(hour["0"], 10);
+                const displayHour = (hourOffset % 12 === 0 ? 12 : hourOffset % 12);
+                const period = hourOffset < 12 ? "AM" : "PM";
+
+                weatherCard.className = 'weather-card';
+                weatherCard.innerHTML = `
+            <div class="weather-card">
+                <div class="info2" style="padding-top: 10px;">${displayHour}:00 ${period}</div>
+                <div class="title">${weatherInfo.temperature}°C</div>
+                <div class="info">EXTREME WEATHER</div>
+                <div style="height: 30px;"></div>
+
+                <div class="info2" style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
+                    <span>Visibility:</span><span>${weatherInfo.visibility}km</span>
+                </div>
+                <div class="info2" style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
+                    <span>Wind Speed:</span><span>${weatherInfo.windSpeed}m/s</span>
+                </div>
+                <div class="info2" style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
+                    <span>Humidity:</span><span>${weatherInfo.humidity}%</span>
+                </div>
+                <div class="info2" style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
+                    <span>Dew Point:</span><span>${weatherInfo.dewPoint}°C</span>
+                </div>
+                <div class="info2" style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
+                    <span>Cloud Cover:</span><span>${weatherInfo.cloudCover}%</span>
+                </div>
+            </div>
+        `;
+                weatherDivList.appendChild(weatherCard);
+            }
+        };
     </script>
 </body>

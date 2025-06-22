@@ -255,9 +255,12 @@ class Weather:
         response = requests.get(self.url, params=params)
         hourly_score = []
         data = response.json()
-        for i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]:
+        for i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]:
+            if data['code'] == 429001: # rate limit
+                break
             v = data["data"]["timelines"][0]["intervals"][i]["values"]
-            hourly_score.append(self.score_hour(v))
+            hourly_score.append(
+                (self.score_hour(v), v))
 
         return hourly_score
 
@@ -332,9 +335,9 @@ def main():
     p = pdal.Pipeline(json.dumps(pipeline))
     p.execute()
 
-c = Calculate()
-c.select_trail(name="Algonquin Provincial Park Canoe Routes")
-c.extract_data()
+# c = Calculate()
+# c.select_trail(name="Algonquin Provincial Park Canoe Routes")
+# c.extract_data()
 # c.organize_events("Algonquin Provincial Park Canoe Routes")
 #c.extract_topographical_data()
 
