@@ -25,13 +25,36 @@ def plot_trail(trail_gdf):
 
 calculate = Calculate()
 calculate.select_trail("Algonquin Provincial Park Canoe Routes")
+
 #gdf = calculate.selected_trail
 #gdf = plot_trail(gdf)
 
 calculate.index_campsites([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [0.05, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45])
 x,y,z = calculate.extract_data()
 weather = Weather(1, 45.0, -79.0)
-print(np.nansum(calculate.overlay_weather_over_veg_secondary(x, weather.score_each_hour(), y,z)))
+x = np.nansum(calculate.overlay_weather_over_veg_secondary(x, weather.score_each_hour(), y,z))
+
+plt.figure(figsize=(10, 8))
+
+# Plot veg density
+plt.pcolormesh(x_edges, y_edges, veg_density_grid, shading='auto', cmap='Greens')
+plt.colorbar(label="Vegetation Density")
+
+# Plot trail on top
+if calculate.trail_selected.geom_type == "LineString":
+    x, y = calculate.trail_selected.xy
+    plt.plot(x, y, color='black', linewidth=2, label="Trail")
+else:
+    for line in calculate_trail_select.geoms:
+        x, y = line.xy
+        plt.plot(x, y, color='black', linewidth=2)
+
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Trail and Vegetation Density")
+plt.legend()
+plt.axis("equal")
+plt.show()
 
 
 # plt.figure(figsize=(10, 8))
