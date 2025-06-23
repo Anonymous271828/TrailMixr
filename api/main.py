@@ -1,5 +1,7 @@
 import datetime
+import io
 import os
+from django.shortcuts import render
 import pdal
 import json
 import rasterio.features
@@ -7,14 +9,18 @@ import rasterio.transform
 import shapely
 import requests
 import rasterio
+import base64
+import matplotlib
 import numpy as np
 import geopandas as gpd
 import matplotlib.pyplot as plt
 from google import genai
+from django.http import JsonResponse
 from scipy.stats import binned_statistic_2d
 from itertools import combinations
 from dotenv import load_dotenv
 
+matplotlib.use('Agg') 
 load_dotenv()
 
 API_KEY = os.getenv("API_KEY_TOMORROW")
@@ -260,6 +266,7 @@ class Calculate:
         weather_scores[hour] for hour in range(int(self.hours))
         ])
 
+        print(self.stops)
         compensator = self.hours - sum([x.hours for x in self.stops])
         grid_to_weather = len(veg_density_grid.flatten()) // compensator
 
@@ -372,7 +379,9 @@ class Weather:
         return score
     
     def score_each_hour(self):
-        for i in range(self.length):
+        final = []
+        print(self.length/24)
+        for i in range(int(self.length/24)):
             # Example: use today's date at midnight UTC
             start_time = datetime.datetime.now() + datetime.timedelta(days=i)
             start_time = start_time.replace(hour=0, minute=0, second=0, microsecond=0).isoformat() + "Z"
@@ -388,16 +397,23 @@ class Weather:
                 "apikey": API_KEY 
             }
             response = requests.get(self.url, params=params)
-            hourly_score = []
             data = response.json()
-            for i in range(24):
-                v = data["data"]["timelines"][0]["intervals"][i]["values"]
-                hourly_score.append(
-                    (self.score_hour(v), v))
-            
-        
+            #print(data)
+            hourly_score = []
+            for i in range(24):     
+                if "code" in data and data["code"] == 429001:
+                    break # rate limit
 
-        return hourly_score
+                if "data" not in data:
+                    hourly_score.append({})
+                    continue
+
+                v = data["data"]["timelines"][0]["intervals"][i]["values"]
+                hourly_score.append(self.score_hour(v))
+            final += hourly_score
+            
+
+        return final
 
     def __repr__(self):
         return f"Weather(date={self.date}, temperature={self.temperature}, precipitation={self.precipitation}, wind_speed={self.wind_speed})"
@@ -570,17 +586,33 @@ def parse_plan(plan_contents):
     calculate.hours = int(other_info[2])
 
     calculate.select_trail(name="Algonquin Provincial Park Canoe Routes")
+    calculate.index_campsites(campsites, [3]*len(campsites))
     weather = Weather(other_info[0], lat, long, int(other_info[2]))
     x,y,z, g,h = calculate.extract_data()
     k = calculate.overlay_weather_over_veg_secondary(x, weather.score_each_hour(), y,z)
-    print(np.nansum(k))
+    print("AAA")
+    print(np.nansum(k)/300000)
+    print("AAA")
+    # print(np.nansum(k)/70000)
 
-    plot_trail_with_diff_overlay(k, g, h, calculate.trail_selected)
+    # fig = plot_trail_with_diff_overlay(k, g, h, calculate.selected_trail.geometry.iloc[0])
+    # fig.savefig("/tmp/trail_overlay.png", dpi=300)
+    return JsonResponse({'score': np.nansum(k)})
 
 def plot_trail_with_diff_overlay(diff_grid, x_edges, y_edges, trail):
+
     fig, ax = plt.subplots(figsize=(10, 8))
 
-    # Plot the grid as a heatmap
+    img = ax.pcolormesh(
+        x_edges, y_edges, diff_grid,
+        shading='auto', cmap='coolwarm', alpha=0.7
+    )
+
+    print("diff_grid shape:", diff_grid.shape)
+    print("x_edges:", len(x_edges), "→", len(x_edges) - 1)
+    print("y_edges:", len(y_edges), "→", len(y_edges) - 1)
+
+
     img = ax.pcolormesh(
         x_edges, y_edges, diff_grid,
         shading='auto', cmap='coolwarm', alpha=0.7
@@ -599,11 +631,25 @@ def plot_trail_with_diff_overlay(diff_grid, x_edges, y_edges, trail):
     ax.set_title("Trail Overlaid on Veg-Weather Score")
     ax.set_aspect("equal")
     ax.axis("off")
-    
-    ax.show()
+
     return fig
     
+def trail_diff_view(request):
+    # global fuck_global, fuck_global2, fuck_global3, fuck_global4
+    # if fuck_global != 0 or fuck_global2 != 0 or fuck_global3 != 0 or fuck_global4 != 0:
+    #     fig = plot_trail_with_diff_overlay(fuck_global, fuck_global2, fuck_global3, fuck_global4)
 
+    #     # Save to PNG in memory
+    #     buf = io.BytesIO()
+    #     fig.savefig(buf, format='png', bbox_inches='tight')
+    #     plt.close(fig)
+    #     buf.seek(0)
+
+    #     # Convert to base64 for embedding in HTML
+    #     img_data = base64.b64encode(buf.read()).decode('utf-8')
+    with open("/tmp/trail_overlay.png", "rb") as f:
+        img_data = base64.b64encode(f.read()).decode('utf-8')
+        return render(request, 'trail_diff.html', {"img_data": img_data})
 
 calculate = Calculate()
 # client = genai.Client(api_key="YOUR_API_KEY")
@@ -623,3 +669,8 @@ calculate = Calculate()
 
 # w = Weather(1, 45.0, -79.0)
 # w.score_each_hour()
+
+fuck_global = 0
+fuck_global2 = 0
+fuck_global3 = 0
+fuck_global4 = 0
