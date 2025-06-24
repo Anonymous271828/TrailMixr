@@ -37,7 +37,8 @@ def upload_file(request):
         uploaded_file = request.FILES['file']
         file_contents = uploaded_file.read().decode('utf-8')  # adjust encoding if needed
 
-        result = parse_plan(file_contents)
-        return JsonResponse({'response': result})
+        result = main(file_contents)
+        print(result)
+        return JsonResponse(result)
 
     return JsonResponse({'error': 'Invalid request'}, status=400)

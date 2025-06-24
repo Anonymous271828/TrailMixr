@@ -64,7 +64,10 @@
             </div>
 
             <div style="display: flex; justify-content: center; margin-top: 30px;">
-                <img src="data:image/png;base64,{{ img_data }}" alt="Trail Score Heatmap"
+                <img
+                    id="result-img"
+                    src=""
+                    alt="Trail Score Heatmap"
                     style="max-width: 90%; border: 2px solid #444; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
             </div>
 
@@ -557,7 +560,7 @@
             </div>
 
             <div class="title" style="font-size: 45px; padding-top: 55px;">Weather Forecast</div>
-            <div id="weather-list"" class=" horizontal-scroll">
+            <div id="weather-list" class=" horizontal-scroll">
                 <div class="weather-card">
                     <div class="info2" style="padding-top: 10px;">12:00 AM</div>
                     <div class="title">30°C</div>
@@ -742,9 +745,12 @@
             const result = await response.json();
             console.log(result);
             
-            const score = result["score"] / 70000;
-            document.getElementById("plan-score").textContent = `${score.toFixed(2)}/100`;
+            const score = result["score"] / 700000;
+            document.getElementById("plan-score").textContent = `${score.toFixed(2)}`;
             document.getElementById("plan-report").style.display = "flex";
+
+            const img_id = result["img_data"];
+            document.getElementById('result-img').src = `data:image/png;base64,${img_id}`;
             // document.getElementById('response').textContent = result.response || result.error;
         }
 
