@@ -168,49 +168,44 @@
         <div class="section-divider"></div>
         <section>
             <div style="margin-left: 200px; margin-right: 200px;">
-                <div style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    gap: 40px;
-                    padding-bottom: 40px;
-                ">
-                    <div style="flex: 1;">
-                        <div class="heading" style="padding-bottom: 30px;">Become a Partner</div>
-                        <div class="header-description">
-                            Got trail data to share? We'd love it — and so would your fellow hikers!
-                        </div>
-                        <div style="height: 15px;"></div>
-                        <div class="header-description">
-                            Take photos, map the route, or send in soil samples, and we'll thank you with a free premium
-                            subscription.
-                        </div>
-                        <div class="button-bg"
-                            style="margin-top: 65px; height: 25px !important; width: 250px !important; display: flex; justify-content: center; align-items: center;">
-                            Get Started</div>
+                <div class="heading" style="padding-bottom: 25px;">Connect with TrailMixr</div>
+                <div class="accordion-panel" style="background: #fff; border-radius: 0px; border-bottom: 1px solid #111; margin-bottom: 0; overflow: hidden; box-shadow: none;">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" style="display: flex; align-items: center; cursor: pointer; padding: 14px 24px; min-height: 40px;">
+                        <span class="accordion-plus" style="font-size: 22px; margin-right: 18px; color: #111; width: 24px; display: flex; align-items: center; justify-content: center;">+</span>
+                        <div class="heading" style="flex: 1; padding: 0; margin: 0; color: #111; font-size: 1.35rem; font-weight: 600;">Become a Partner</div>
                     </div>
-                    <div style="flex-shrink: 0; padding-left: 25px">
-                        <img src="assets/images/partner.png" alt="Partner Image" style="height: 300px;" />
+                    <div class="accordion-content" style="display: none; padding: 0 24px 24px 66px; background: #fff;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; gap: 32px;">
+                            <div style="flex: 1;">
+                                <div class="header-description" style="color: #23272f; font-size: 1.15rem !important;">
+                                    Got trail data to share? We'd love it — and so would your fellow hikers!
+                                </div>
+                                <div class="header-description" style="color: #23272f; font-size: 1.15rem !important;">
+                                    Take photos, map the route, or send in soil samples, and we'll thank you with a free premium subscription.
+                                </div>
+                                <div class="button-bg"
+                                    style="margin-top: 15px; font-size: 0.85rem !important; height: 13px !important; width: 120px !important; display: flex; justify-content: center; align-items: center;">
+                                    Get Started</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    gap: 40px;
-                ">
-                    <div style="flex: 1;">
-                        <div class="heading" style="padding-bottom: 30px;">Hello World</div>
-                        <div class="header-description">
-                            Are you a developer? Tap into our free API for easy access to rich environmental trail data -
-                            elevation, ecosystems, weather, and more.
-                        </div>
-                        <div class="button-bg"
-                            style="margin-top: 65px; height: 25px !important; width: 250px !important; display: flex; justify-content: center; align-items: center;">
-                            Get Started</div>
+                <div class="accordion-panel" style="background: #fff; border-radius: 0px; border-bottom: 1px solid #111; margin-bottom: 0; overflow: hidden; box-shadow: none;">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" style="display: flex; align-items: center; cursor: pointer; padding: 14px 24px; min-height: 40px;">
+                        <span class="accordion-plus" style="font-size: 22px; margin-right: 18px; color: #111; width: 24px; display: flex; align-items: center; justify-content: center;">+</span>
+                        <div class="heading" style="flex: 1; padding: 0; margin: 0; color: #111; font-size: 1.35rem; font-weight: 600;">Developer API</div>
                     </div>
-                    <div style="flex-shrink: 0; padding-left: 25px">
-                        <img src="assets/images/api.png" alt="Partner Image" style="height: 300px;" />
+                    <div class="accordion-content" style="display: none; padding: 0 24px 24px 66px; background: #fff;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; gap: 32px;">
+                            <div style="flex: 1;">
+                                <div class="header-description" style="color: #23272f; font-size: 1.15rem !important;">
+                                    Are you a developer? Tap into our free API for easy access to rich environmental trail data - elevation, ecosystems, weather, and more.
+                                </div>
+                                <div class="button-bg"
+                                    style="margin-top: 15px; font-size: 0.85rem !important; height: 13px !important; width: 120px !important; display: flex; justify-content: center; align-items: center;">
+                                    Get Started</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -264,6 +259,27 @@
                 left: distance,
                 behavior: 'smooth'
             });
+        }
+
+        // Accordion logic
+        function toggleAccordion(header) {
+            const panel = header.parentElement;
+            const content = panel.querySelector('.accordion-content');
+            const plus = header.querySelector('.accordion-plus');
+            const allPanels = document.querySelectorAll('.accordion-panel');
+            allPanels.forEach(p => {
+                if (p !== panel) {
+                    p.querySelector('.accordion-content').style.display = 'none';
+                    p.querySelector('.accordion-plus').textContent = '+';
+                }
+            });
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                plus.textContent = '+';
+            } else {
+                content.style.display = 'block';
+                plus.textContent = '–';
+            }
         }
     </script>
 </body>
