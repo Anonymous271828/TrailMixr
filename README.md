@@ -14,7 +14,7 @@
 
 ## Overview
 
-TrailMixr is an innovative app that goes beyond basic trail planning—it's your intelligent companion for safe, multi-day hiking adventures in Canadian provincial parks. TrailMixr uniquely combines advanced algorithms, real-time environmental data, and community-driven insights to generate personalized trip plans. With features like proprietary safety and satisfaction scoring, citizen science integration, emergency plan closure, and recommendations based on topography, weather, and wildlife data, TrailMixr empowers users to explore the outdoors with confidence and contribute to conservation efforts.
+TrailMixr is an innovative app that goes beyond basic trail planning, it's your intelligent companion for safe, multi-day hiking adventures in Canadian provincial parks. TrailMixr uniquely combines advanced algorithms, real-time environmental data, and community-driven insights to generate personalized trip plans. With features like proprietary safety and satisfaction scoring, citizen science integration, emergency plan closure, and recommendations based on topography, weather, and wildlife data, TrailMixr empowers users to explore the outdoors with confidence and contribute to conservation efforts.
 
 ## Project Vision
 
