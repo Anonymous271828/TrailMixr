@@ -15,43 +15,60 @@
     <div id="header-placeholder"></div>
 
     <main>
-        <section style="height: 470vh;">
-            <div style="position: absolute; top: 112px;">
-                <button class="button-border"
-                    style="border: none !important; width: 150px !important; height: 40px !important;"
-                    onclick="window.location.href='locations.html'">
-                    < Back to Locations</button>
-            </div>
-            <div id="journey-name" class="heading" style="justify-content: center !important; padding-top: 35px;">Shades
-                Mill</div>
-            <div id="journey-loc" class="header-description"
-                style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: -10px;">
-                Cambridge ON, Canada - N1R 123
-            </div>
-            <div style="display: flex; justify-content: center; margin-top: 15px; gap: 10px;">
-                <button class="button-bg" style="width: 250px !important;">Plan This Journey</button>
-                <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect()" />
-                <button id="customUploadBtn" class="button-border" style="width: 250px !important;">Upload Existing
-                    Journey</button>
-            </div>
+        <div id="location-view" 
+        style="position: relative; width: 100%; overflow: hidden; min-height: 400px; height: 400px;">
+            <section style="
+    position: absolute; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;">
+                <div style="
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-top: 50px;">
+                    <div class="title2" style="text-align: center;">
+                        Algonquin Park
+                    </div>
+                    <div class="subtitle-location">
+                        Ontario, Canada
+                    </div>
+                    <div style="display: flex; justify-content: center; margin-top: 60px; gap: 10px;">
+                        <button class="button-border" style="width: 250px !important;">Plan This Journey</button>
+                        <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect()" />
+                        <button id="customUploadBtn" class="button-border" style="width: 250px !important;">Upload Existing
+                            Journey</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="section-divider"></div>
+        <section style="display: none;"></section>
+        <section>
             <div id="plan-report" style="display: none; flex-direction: column; align-items: center;">
                 <div class="heading" style="padding-top: 35px;">Plan Report</div>
                 <div id="plan-score" class="subtitle" style="padding-top: 35px;">/100</div>
             </div>
 
             <div
-                style="display: flex; gap: 70px; align-items: center; justify-content: center; padding-top: 50px; padding-bottom: 25px;">
+                style="display: flex; gap: 70px; align-items: center; justify-content: center; padding-top: 10px; padding-bottom: 100px;">
                 <div class="journey-stat">
-                    <div class="title">0</div>
-                    <div class="info">FISH</div>
+                    <div class="title" style="color: #303030 !important;">0</div>
+                    <div class="info" style="color: #303030 !important;">FISH</div>
                 </div>
                 <div class="journey-stat">
-                    <div class="title">30+</div>
-                    <div class="info">TRAILS</div>
+                    <div class="title" style="color: #303030 !important;">30+</div>
+                    <div class="info" style="color: #303030 !important;">TRAILS</div>
                 </div>
-                <div class="journey-stat">
-                    <div class="title">21</div>
-                    <div class="info">PONDS</div>
+                <div class="journey-stat" style="color: #303030">
+                    <div class="title" style="color: #303030 !important;">21</div>
+                    <div class="info" style="color: #303030 !important;">PONDS</div>
                 </div>
             </div>
 
@@ -71,604 +88,314 @@
                     style="max-width: 90%; border: 2px solid #444; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
             </div>
 
-            <div class="title" style="font-size: 45px; padding-top: 70px;">Reviews</div>
-            <div class="horizontal-scroll">
-                <div class="review-card">
-                    <div
-                        style="text-align: center; display: flex; flex-direction: row; padding-left: 20px; padding-top: 20px; padding-bottom: 10px; color: #575757 !important;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <span
-                            style="display: flex; align-items: center; height: 24px; margin-left: 5px; font-family: 'Inter'; font-size: 15px; color: #5a5a5a;">
-                            - 6 months
-                            ago</span>
+            <div class="heading" style="font-size: 45px; padding-top: 70px;">Reviews</div>
+            <div class="scroll-wrapper">
+                <button class="scroll-button left" onclick="scrollHorizontal(this.parentElement.querySelector('.horizontal-scroll'), -300)"></button>
+                <div class="horizontal-scroll">
+                    <div class="review-card">
+                        <div
+                            style="text-align: center; display: flex; flex-direction: row; padding-left: 20px; padding-top: 20px; padding-bottom: 10px; color: #575757 !important;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <span
+                                style="display: flex; align-items: center; height: 24px; margin-left: 5px; font-family: 'Inter'; font-size: 15px; color: #5a5a5a;">
+                                - 6 months
+                                ago</span>
+                        </div>
+                        <div class="review">
+                            Took the kids to Shades Mill Conservation Area Beach, and they had a blast! It's a beautiful
+                            spot with clean facilities and well-maintained grounds. The beach was perfect for a family day
+                            out, and the whole area felt peaceful. A great place to relax in Cambridge, Ontario!
+                        </div>
                     </div>
-                    <div class="review">
-                        Took the kids to Shades Mill Conservation Area Beach, and they had a blast! It’s a beautiful
-                        spot with clean facilities and well-maintained grounds. The beach was perfect for a family day
-                        out, and the whole area felt peaceful. A great place to relax in Cambridge, Ontario!
+                    <div class="review-card">
+                        <div
+                            style="text-align: center; display: flex; flex-direction: row; padding-left: 20px; padding-top: 20px; padding-bottom: 10px; color: #575757 !important;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <span
+                                style="display: flex; align-items: center; height: 24px; margin-left: 5px; font-family: 'Inter'; font-size: 15px; color: #5a5a5a;">
+                                - 6 months
+                                ago</span>
+                        </div>
+                        <div class="review">
+                            Took the kids to Shades Mill Conservation Area Beach, and they had a blast! It's a beautiful
+                            spot with clean facilities and well-maintained grounds. The beach was perfect for a family day
+                            out, and the whole area felt peaceful. A great place to relax in Cambridge, Ontario!
+                        </div>
                     </div>
-                </div>
-                <div class="review-card">
-                    <div
-                        style="text-align: center; display: flex; flex-direction: row; padding-left: 20px; padding-top: 20px; padding-bottom: 10px; color: #575757 !important;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <span
-                            style="display: flex; align-items: center; height: 24px; margin-left: 5px; font-family: 'Inter'; font-size: 15px; color: #5a5a5a;">
-                            - 6 months
-                            ago</span>
+                    <div class="review-card">
+                        <div
+                            style="text-align: center; display: flex; flex-direction: row; padding-left: 20px; padding-top: 20px; padding-bottom: 10px; color: #575757 !important;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <span
+                                style="display: flex; align-items: center; height: 24px; margin-left: 5px; font-family: 'Inter'; font-size: 15px; color: #5a5a5a;">
+                                - 6 months
+                                ago</span>
+                        </div>
+                        <div class="review">
+                            Took the kids to Shades Mill Conservation Area Beach, and they had a blast! It's a beautiful
+                            spot with clean facilities and well-maintained grounds. The beach was perfect for a family day
+                            out, and the whole area felt peaceful. A great place to relax in Cambridge, Ontario!
+                        </div>
                     </div>
-                    <div class="review">
-                        Took the kids to Shades Mill Conservation Area Beach, and they had a blast! It’s a beautiful
-                        spot with clean facilities and well-maintained grounds. The beach was perfect for a family day
-                        out, and the whole area felt peaceful. A great place to relax in Cambridge, Ontario!
-                    </div>
-                </div>
-                <div class="review-card">
-                    <div
-                        style="text-align: center; display: flex; flex-direction: row; padding-left: 20px; padding-top: 20px; padding-bottom: 10px; color: #575757 !important;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <span
-                            style="display: flex; align-items: center; height: 24px; margin-left: 5px; font-family: 'Inter'; font-size: 15px; color: #5a5a5a;">
-                            - 6 months
-                            ago</span>
-                    </div>
-                    <div class="review">
-                        Took the kids to Shades Mill Conservation Area Beach, and they had a blast! It’s a beautiful
-                        spot with clean facilities and well-maintained grounds. The beach was perfect for a family day
-                        out, and the whole area felt peaceful. A great place to relax in Cambridge, Ontario!
-                    </div>
-                </div>
-                <div class="review-card">
-                    <div
-                        style="text-align: center; display: flex; flex-direction: row; padding-left: 20px; padding-top: 20px; padding-bottom: 10px; color: #575757 !important;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <span
-                            style="display: flex; align-items: center; height: 24px; margin-left: 5px; font-family: 'Inter'; font-size: 15px; color: #5a5a5a;">
-                            - 6 months
-                            ago</span>
-                    </div>
-                    <div class="review">
-                        Took the kids to Shades Mill Conservation Area Beach, and they had a blast! It’s a beautiful
-                        spot with clean facilities and well-maintained grounds. The beach was perfect for a family day
-                        out, and the whole area felt peaceful. A great place to relax in Cambridge, Ontario!
-                    </div>
-                </div>
-                <div class="review-card">
-                    <div
-                        style="text-align: center; display: flex; flex-direction: row; padding-left: 20px; padding-top: 20px; padding-bottom: 10px; color: #575757 !important;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <span
-                            style="display: flex; align-items: center; height: 24px; margin-left: 5px; font-family: 'Inter'; font-size: 15px; color: #5a5a5a;">
-                            - 6 months
-                            ago</span>
-                    </div>
-                    <div class="review">
-                        Took the kids to Shades Mill Conservation Area Beach, and they had a blast! It’s a beautiful
-                        spot with clean facilities and well-maintained grounds. The beach was perfect for a family day
-                        out, and the whole area felt peaceful. A great place to relax in Cambridge, Ontario!
+                    <div class="review-card">
+                        <div
+                            style="text-align: center; display: flex; flex-direction: row; padding-left: 20px; padding-top: 20px; padding-bottom: 10px; color: #575757 !important;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-star-icon lucide-star">
+                                <path
+                                    d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+                            </svg>
+                            <span
+                                style="display: flex; align-items: center; height: 24px; margin-left: 5px; font-family: 'Inter'; font-size: 15px; color: #5a5a5a;">
+                                - 6 months
+                                ago</span>
+                        </div>
+                        <div class="review">
+                            Took the kids to Shades Mill Conservation Area Beach, and they had a blast! It's a beautiful
+                            spot with clean facilities and well-maintained grounds. The beach was perfect for a family day
+                            out, and the whole area felt peaceful. A great place to relax in Cambridge, Ontario!
+                        </div>
                     </div>
                 </div>
-                <div class="review-card">
-                    <div
-                        style="text-align: center; display: flex; flex-direction: row; padding-left: 20px; padding-top: 20px; padding-bottom: 10px; color: #575757 !important;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <span
-                            style="display: flex; align-items: center; height: 24px; margin-left: 5px; font-family: 'Inter'; font-size: 15px; color: #5a5a5a;">
-                            - 6 months
-                            ago</span>
-                    </div>
-                    <div class="review">
-                        Took the kids to Shades Mill Conservation Area Beach, and they had a blast! It’s a beautiful
-                        spot with clean facilities and well-maintained grounds. The beach was perfect for a family day
-                        out, and the whole area felt peaceful. A great place to relax in Cambridge, Ontario!
-                    </div>
-                </div>
-                <div class="review-card">
-                    <div
-                        style="text-align: center; display: flex; flex-direction: row; padding-left: 20px; padding-top: 20px; padding-bottom: 10px; color: #575757 !important;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <span
-                            style="display: flex; align-items: center; height: 24px; margin-left: 5px; font-family: 'Inter'; font-size: 15px; color: #5a5a5a;">
-                            - 6 months
-                            ago</span>
-                    </div>
-                    <div class="review">
-                        Took the kids to Shades Mill Conservation Area Beach, and they had a blast! It’s a beautiful
-                        spot with clean facilities and well-maintained grounds. The beach was perfect for a family day
-                        out, and the whole area felt peaceful. A great place to relax in Cambridge, Ontario!
-                    </div>
-                </div>
-                <div class="review-card">
-                    <div
-                        style="text-align: center; display: flex; flex-direction: row; padding-left: 20px; padding-top: 20px; padding-bottom: 10px; color: #575757 !important;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <span
-                            style="display: flex; align-items: center; height: 24px; margin-left: 5px; font-family: 'Inter'; font-size: 15px; color: #5a5a5a;">
-                            - 6 months
-                            ago</span>
-                    </div>
-                    <div class="review">
-                        Took the kids to Shades Mill Conservation Area Beach, and they had a blast! It’s a beautiful
-                        spot with clean facilities and well-maintained grounds. The beach was perfect for a family day
-                        out, and the whole area felt peaceful. A great place to relax in Cambridge, Ontario!
-                    </div>
-                </div>
-                <div class="review-card">
-                    <div
-                        style="text-align: center; display: flex; flex-direction: row; padding-left: 20px; padding-top: 20px; padding-bottom: 10px; color: #575757 !important;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <span
-                            style="display: flex; align-items: center; height: 24px; margin-left: 5px; font-family: 'Inter'; font-size: 15px; color: #5a5a5a;">
-                            - 6 months
-                            ago</span>
-                    </div>
-                    <div class="review">
-                        Took the kids to Shades Mill Conservation Area Beach, and they had a blast! It’s a beautiful
-                        spot with clean facilities and well-maintained grounds. The beach was perfect for a family day
-                        out, and the whole area felt peaceful. A great place to relax in Cambridge, Ontario!
-                    </div>
-                </div>
-                <div class="review-card">
-                    <div
-                        style="text-align: center; display: flex; flex-direction: row; padding-left: 20px; padding-top: 20px; padding-bottom: 10px; color: #575757 !important;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <span
-                            style="display: flex; align-items: center; height: 24px; margin-left: 5px; font-family: 'Inter'; font-size: 15px; color: #5a5a5a;">
-                            - 6 months
-                            ago</span>
-                    </div>
-                    <div class="review">
-                        Took the kids to Shades Mill Conservation Area Beach, and they had a blast! It’s a beautiful
-                        spot with clean facilities and well-maintained grounds. The beach was perfect for a family day
-                        out, and the whole area felt peaceful. A great place to relax in Cambridge, Ontario!
-                    </div>
-                </div>
-                <div class="review-card">
-                    <div
-                        style="text-align: center; display: flex; flex-direction: row; padding-left: 20px; padding-top: 20px; padding-bottom: 10px; color: #575757 !important;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-star-icon lucide-star">
-                            <path
-                                d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                        </svg>
-                        <span
-                            style="display: flex; align-items: center; height: 24px; margin-left: 5px; font-family: 'Inter'; font-size: 15px; color: #5a5a5a;">
-                            - 6 months
-                            ago</span>
-                    </div>
-                    <div class="review">
-                        Took the kids to Shades Mill Conservation Area Beach, and they had a blast! It’s a beautiful
-                        spot with clean facilities and well-maintained grounds. The beach was perfect for a family day
-                        out, and the whole area felt peaceful. A great place to relax in Cambridge, Ontario!
-                    </div>
-                </div>
+                <button class="scroll-button right" onclick="scrollHorizontal(this.parentElement.querySelector('.horizontal-scroll'), 300)"></button>
             </div>
 
-            <div class="title" style="font-size: 45px; padding-top: 55px;">Weather Forecast</div>
-            <div id="weather-list" class=" horizontal-scroll">
-                <div class="weather-card">
-                    <div class="info2" style="padding-top: 10px;">12:00 AM</div>
-                    <div class="title">30°C</div>
-                    <div class="info">EXTREME WEATHER</div>
-                    <div style="height: 30px;"></div>
+            <div class="heading" style="font-size: 45px; padding-top: 55px;">Weather Forecast</div>
+            <div class="scroll-wrapper">
+                <button class="scroll-button left" onclick="scrollHorizontal(this.parentElement.querySelector('.horizontal-scroll'), -300)"></button>
+                <div id="weather-list" class=" horizontal-scroll">
+                    <div class="weather-card">
+                        <div class="info2" style="padding-top: 10px;">12:00 AM</div>
+                        <div class="title">30°C</div>
+                        <div class="info">EXTREME WEATHER</div>
+                        <div style="height: 30px;"></div>
 
-                    <div class="info2"
-                        style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
-                        <span>Visibility:</span><span>16</span>
-                    </div>
-                    <div class="info2"
-                        style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
-                        <span>Wind Speed:</span><span>4.2</span>
-                    </div>
-                    <div class="info2"
-                        style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
-                        <span>Humidity:</span><span>35</span>
-                    </div>
-                    <div class="info2"
-                        style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
-                        <span>Dew Point:</span><span>13.6</span>
-                    </div>
-                    <div class="info2"
-                        style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
-                        <span>Cloud Cover:</span><span>55</span>
+                        <div class="info2"
+                            style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
+                            <span>Visibility:</span><span>16</span>
+                        </div>
+                        <div class="info2"
+                            style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
+                            <span>Wind Speed:</span><span>4.2</span>
+                        </div>
+                        <div class="info2"
+                            style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
+                            <span>Humidity:</span><span>35</span>
+                        </div>
+                        <div class="info2"
+                            style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
+                            <span>Dew Point:</span><span>13.6</span>
+                        </div>
+                        <div class="info2"
+                            style="display: flex; justify-content: space-between; width: 200px; text-align: left;">
+                            <span>Cloud Cover:</span><span>55</span>
+                        </div>
                     </div>
                 </div>
+                <button class="scroll-button right" onclick="scrollHorizontal(this.parentElement.querySelector('.horizontal-scroll'), 300)"></button>
             </div>
-            <div class="title" style="font-size: 45px; padding-top: 55px;">List of Trails (2324)</div>
-            <div class="horizontal-scroll">
-                <div class="trail-card">
-                    <div class="info" style="padding-top: 10px;">Trans Canada Trail - 4,129km</div>
-                    <div class="info" style="padding-top: 10px;">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
-                        dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
-                        cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-                        ridiculus mus.</div>
+            <div class="heading" style="font-size: 45px; padding-top: 55px;">List of Trails (2324)</div>
+            <div class="scroll-wrapper">
+                <button class="scroll-button left" onclick="scrollHorizontal(this.parentElement.querySelector('.horizontal-scroll'), -300)"></button>
+                <div class="horizontal-scroll">
+                    <div class="trail-card">
+                        <div class="info" style="padding-top: 10px;">Trans Canada Trail - 4,129km</div>
+                        <div class="info" style="padding-top: 10px;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
+                            dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
+                            cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+                            ridiculus mus.</div>
+                    </div>
+                    <div class="trail-card">
+                        <div class="info" style="padding-top: 10px;">Trans Canada Trail - 4,129km</div>
+                        <div class="info" style="padding-top: 10px;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
+                            dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
+                            cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+                            ridiculus mus.</div>
+                    </div>
+                    <div class="trail-card">
+                        <div class="info" style="padding-top: 10px;">Trans Canada Trail - 4,129km</div>
+                        <div class="info" style="padding-top: 10px;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
+                            dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
+                            cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+                            ridiculus mus.</div>
+                    </div>
+                    <div class="trail-card">
+                        <div class="info" style="padding-top: 10px;">Trans Canada Trail - 4,129km</div>
+                        <div class="info" style="padding-top: 10px;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
+                            dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
+                            cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+                            ridiculus mus.</div>
+                    </div>
+                    <div class="trail-card">
+                        <div class="info" style="padding-top: 10px;">Trans Canada Trail - 4,129km</div>
+                        <div class="info" style="padding-top: 10px;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
+                            dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
+                            cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+                            ridiculus mus.</div>
+                    </div>
+                    <div class="trail-card">
+                        <div class="info" style="padding-top: 10px;">Trans Canada Trail - 4,129km</div>
+                        <div class="info" style="padding-top: 10px;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
+                            dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
+                            cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+                            ridiculus mus.</div>
+                    </div>
+                    <div class="trail-card">
+                        <div class="info" style="padding-top: 10px;">Trans Canada Trail - 4,129km</div>
+                        <div class="info" style="padding-top: 10px;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
+                            dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
+                            cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+                            ridiculus mus.</div>
+                    </div>
                 </div>
-                <div class="trail-card">
-                    <div class="info" style="padding-top: 10px;">Trans Canada Trail - 4,129km</div>
-                    <div class="info" style="padding-top: 10px;">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
-                        dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
-                        cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-                        ridiculus mus.</div>
-                </div>
-                <div class="trail-card">
-                    <div class="info" style="padding-top: 10px;">Trans Canada Trail - 4,129km</div>
-                    <div class="info" style="padding-top: 10px;">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
-                        dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
-                        cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-                        ridiculus mus.</div>
-                </div>
-                <div class="trail-card">
-                    <div class="info" style="padding-top: 10px;">Trans Canada Trail - 4,129km</div>
-                    <div class="info" style="padding-top: 10px;">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
-                        dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
-                        cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-                        ridiculus mus.</div>
-                </div>
-                <div class="trail-card">
-                    <div class="info" style="padding-top: 10px;">Trans Canada Trail - 4,129km</div>
-                    <div class="info" style="padding-top: 10px;">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
-                        dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
-                        cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-                        ridiculus mus.</div>
-                </div>
-                <div class="trail-card">
-                    <div class="info" style="padding-top: 10px;">Trans Canada Trail - 4,129km</div>
-                    <div class="info" style="padding-top: 10px;">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
-                        dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
-                        cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-                        ridiculus mus.</div>
-                </div>
-                <div class="trail-card">
-                    <div class="info" style="padding-top: 10px;">Trans Canada Trail - 4,129km</div>
-                    <div class="info" style="padding-top: 10px;">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
-                        dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
-                        cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-                        ridiculus mus.</div>
-                </div>
+                <button class="scroll-button right" onclick="scrollHorizontal(this.parentElement.querySelector('.horizontal-scroll'), 300)"></button>
             </div>
             <div class="title" style="font-size: 45px; padding-top: 55px;">List of Canoe Routes (2324)</div>
-            <div class="horizontal-scroll">
-                <div class="trail-card">
-                    <div class="info" style="padding-top: 10px;">Trans Canada Canoe - 1,129km</div>
-                    <div class="info" style="padding-top: 10px;">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
-                        dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
-                        cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-                        ridiculus mus.</div>
+            <div class="scroll-wrapper">
+                <button class="scroll-button left" onclick="scrollHorizontal(this.parentElement.querySelector('.horizontal-scroll'), -300)"></button>
+                <div class="horizontal-scroll">
+                    <div class="trail-card">
+                        <div class="info" style="padding-top: 10px;">Trans Canada Canoe - 1,129km</div>
+                        <div class="info" style="padding-top: 10px;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna id eros ultricies
+                            dignissim. Donec massa neque, sodales non velit non, bibendum ultricies justo. Aliquam dictum
+                            cursus maximus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+                            ridiculus mus.</div>
+                    </div>
                 </div>
+                <button class="scroll-button right" onclick="scrollHorizontal(this.parentElement.querySelector('.horizontal-scroll'), 300)"></button>
             </div>
-
-            <div class="title" style="font-size: 45px; padding-top: 55px;">Location Elevation</div>
             <div class="title" style="font-size: 45px; padding-top: 55px;">Photo Gallery (7)</div>
-            <div class="horizontal-scroll">
-                <img class="journey-photo">
-                <img class="journey-photo">
-                <img class="journey-photo">
-                <img class="journey-photo">
-                <img class="journey-photo">
-                <img class="journey-photo">
+            <div class="scroll-wrapper">
+                <button class="scroll-button left" onclick="scrollHorizontal(this.parentElement.querySelector('.horizontal-scroll'), -300)"></button>
+                <div class="horizontal-scroll">
+                    <img class="journey-photo">
+                    <img class="journey-photo">
+                    <img class="journey-photo">
+                    <img class="journey-photo">
+                    <img class="journey-photo">
+                    <img class="journey-photo">
+                </div>
+                <button class="scroll-button right" onclick="scrollHorizontal(this.parentElement.querySelector('.horizontal-scroll'), 300)"></button>
             </div>
 
         </section>
@@ -816,5 +543,12 @@
                 weatherDivList.appendChild(weatherCard);
             }
         };
+
+        function scrollHorizontal(container, distance) {
+            container.scrollBy({
+                left: distance,
+                behavior: 'smooth'
+            });
+        }
     </script>
 </body>
