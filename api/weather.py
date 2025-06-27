@@ -1,4 +1,6 @@
 import datetime
+import time
+
 import requests
 import os
 from dotenv import load_dotenv
@@ -23,6 +25,8 @@ class Weather:
                 "tags": ["Toronto", "Bike"]
             }
 
+    def get_weather_data(self, lat, long, date, time):
+        pass
     def score_hour(self, v):
         score = 0.0
         v["temperature"] = float(v["temperature"])
@@ -64,7 +68,7 @@ class Weather:
     def score_each_hour(self):
         final = []
         print(self.length / 24)
-        for i in range(int(self.length / 24)):
+        for i in range(1): # int(self.length / 24)
             # Example: use today's date at midnight UTC
             start_time = datetime.datetime.now() + datetime.timedelta(days=i)
             start_time = start_time.replace(hour=0, minute=0, second=0, microsecond=0).isoformat() + "Z"
@@ -79,11 +83,21 @@ class Weather:
                 "startTime": start_time,
                 "apikey": API_KEY
             }
-            response = requests.get(self.url, params=params)
+            while True:
+                try:
+                    print(params)
+                    response = requests.get(self.url, params=params)
+                    if "code" in response:
+                        raise Exception
+                    else:
+                        print("FINISHED")
+                        break
+                except requests.RequestException as e:
+                    time.sleep(1)
             data = response.json()
             print(data)
             hourly_score = []
-            for i in range(24):
+            for i in range(int(self.length % 24)):
                 if "code" in data and data["code"] == 429001:
                     print("rate_limit")
                     break  # rate limit
@@ -93,9 +107,10 @@ class Weather:
                     continue
 
                 v = data["data"]["timelines"][0]["intervals"][i]["values"]
+                print(v)
                 hourly_score.append(self.score_hour(v))
             final += hourly_score
-
+        print(final)
         return final
 
     def __repr__(self):
