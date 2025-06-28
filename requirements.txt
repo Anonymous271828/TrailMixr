@@ -1,0 +1,11 @@
+Django>=5.2.3
+numpy
+matplotlib
+geopandas
+rasterio
+shapely
+pdal
+requests
+python-dotenv
+scipy
+google-generativeai 

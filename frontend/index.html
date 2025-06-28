@@ -9,41 +9,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body style="background: url('assets/images/backdrop.jpg') center center / cover no-repeat fixed; min-height: 100vh;">
     <div id="header-placeholder"></div>
 
     <main>
-        <section>
-            <div style="margin: 0; position: absolute; top: 30%; z-index: 1;">
-                <div>
-                    <div style="flex-direction: column;">
-                        <div class="title">Welcome to TrailMixr</div>
-                        <div class="subtitle">Outdoors? We'll show you where to go.</div>
-                    </div>
-                    <div style="padding-top: 55px;">
-                        <button onclick="window.location.href='register.html'" class="button-bg"
-                            style="width: 260px !important; font-size: 16px; margin-right: 5px">Get
-                            Started</button>
-                        <button onclick="document.getElementById('find-nearby-trails').scrollIntoView({ behavior: 'smooth' });" class="button-border" style="width: 207px !important; font-size: 16px">Find Nearby
-                            Trails</button>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 4px; padding-top: 5px; padding-left: 5px">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12.5" viewBox="0 0 24 24" fill="none"
-                            stroke="#5a5a5a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="M12 16v-4" />
-                            <path d="M12 8h.01" />
-                        </svg>
-                        <span class="hint">No credit card required</span>
-                    </div>
-                </div>
+        <section style="display: flex; flex-direction: column; justify-content: center; align-items: flex-start; width: 100%; min-height: 100vh; padding: 60px 55px; box-sizing: border-box; overflow-x: hidden;">
+            <div style="flex-direction: column;">
+                <div class="title" style="margin-bottom: -2px;">Welcome to TrailMixr</div>
+                <div class="subtitle">Outdoors? We'll show you where to go.</div>
             </div>
-            <img src="assets/images/accent.png" style="max-width: 800px; height: 580px; position: absolute; right: 0; top: 15%;">
+            <div style="padding-top: 55px;">
+                <button onclick="window.location.href='register.html'" class="button-border"
+                    style="width: 260px !important; font-size: 16px; margin-right: 5px">Get
+                    Started</button>
+                <button onclick="document.getElementById('find-nearby-trails').scrollIntoView({ behavior: 'smooth' });" class="button-border" style="width: 260px !important; font-size: 16px">Find Nearby
+                    Trails</button>
+            </div>
         </section>
         <div class="section-divider"></div>
-        <div id="find-nearby-trails" style="position: relative; width: 100%; overflow: hidden;">
-            <img src="assets/images/find-trails.jpg" style="width: 100%; height: 420px; object-fit: cover;">
-
+        <div id="find-nearby-trails" 
+        style="position: relative; width: 100%; overflow: hidden; min-height: 420px; height: 420px;">
             <section style="
     position: absolute; 
     top: 0; left: 0; 
@@ -63,352 +48,179 @@
                     </div>
 
                     <input class="trail-search-bar" placeholder="Search by park, trail name, or city"
-                        style="width: 115%; padding-left: 45px; box-sizing: border-box;" />
+                        style="width: 130%; padding-left: 45px; box-sizing: border-box;" />
 
-                    <svg style="position: absolute; top: 63%; left: -20px; transform: translateY(-50%);"
-                        xmlns="http://www.w3.org/2000/svg" width="21" viewBox="0 0 24 24" fill="none" stroke="#CCCCCC"
-                        stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                        <path
-                            d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
-                        <circle cx="12" cy="10" r="3" />
-                    </svg>
-                    <div class="subtitle2" style="padding-top: 3px;">View our index of supported parks and locations
+                    <div class="subtitle2" style="padding-top: 15px;">View our index of supported parks and locations
                     </div>
                 </div>
             </section>
-
-
         </div>
         <div class="section-divider"></div>
-        <section style="height: 250vh" id="features">
-            <div class="heading" style="padding-bottom: 30px;">TrailMixr Features</div>
-            <div class="feature">
-                <img class="image" src="assets/images/feature-showcase-1.png">
-                <div class="feature-text">
-                    <div class="title">In-Depth Trail Planning</div>
-                    <div class="description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ac orci vitae suscipit.
-                        Aliquam luctus, enim et maximus aliquet.
-                    </div>
-                </div>
-            </div>
-            <div class="feature">
-                <img class="image" src="assets/images/feature-showcase-1.png">
-                <div class="feature-text">
-                    <div class="title">Environmental Research</div>
-                    <div class="description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ac orci vitae suscipit.
-                        Aliquam luctus, enim et maximus aliquet.
-                    </div>
-                </div>
-            </div>
-            <div class="feature">
-                <img class="image" src="assets/images/feature-showcase-1.png">
-                <div class="feature-text">
-                    <div class="title">Connect With Others</div>
-                    <div class="description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ac orci vitae suscipit.
-                        Aliquam luctus, enim et maximus aliquet.
-                    </div>
-                </div>
-            </div>
-
-            <div class="heading">Popular Journeys</div>
-            <div class="horizontal-scroll">
-                <div class="journey-card">
-                    <div class="image-container">
-                        <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
-                        <div class="overlay">
-                            <div class="journey-title">Shades Mill</div>
-                            <div class="location-title">Cambridge, ON</div>
+        <section id="journeys">
+            <div style="margin-left: 200px; margin-right: 200px;">
+                <div class="heading" style="padding-bottom: 30px;">Popular Journeys</div>
+                <div class="scroll-wrapper">
+                    <button class="scroll-button left" onclick="scrollHorizontal(this.parentElement.querySelector('.horizontal-scroll'), -300)"></button>
+                    <div class="horizontal-scroll">
+                        <div class="journey-card">
+                            <div class="image-container">
+                                <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
+                                <div class="overlay">
+                                    <div class="journey-title">Shades Mill</div>
+                                    <div class="location-title">Cambridge, ON</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="journey-card">
+                            <div class="image-container">
+                                <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
+                                <div class="overlay">
+                                    <div class="journey-title">Shades Mill</div>
+                                    <div class="location-title">Cambridge, ON</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="journey-card">
+                            <div class="image-container">
+                                <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
+                                <div class="overlay">
+                                    <div class="journey-title">Shades Mill</div>
+                                    <div class="location-title">Cambridge, ON</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="journey-card">
+                            <div class="image-container">
+                                <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
+                                <div class="overlay">
+                                    <div class="journey-title">Shades Mill</div>
+                                    <div class="location-title">Cambridge, ON</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="journey-card">
+                            <div class="image-container">
+                                <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
+                                <div class="overlay">
+                                    <div class="journey-title">Shades Mill</div>
+                                    <div class="location-title">Cambridge, ON</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="journey-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ac orci vitae suscipit.
-                        Aliquam luctus, enim et maximus aliquet.
-                    </div>
-                    <button class="button-bg" style="
-                    position: absolute;
-                    bottom: 15px; 
-                    left: 25px; 
-                    width: 165px !important; 
-                    height: 34px !important;
-                    font-size: 15px;
-                    ">View Trip</button>
+                    <button class="scroll-button right" onclick="scrollHorizontal(this.parentElement.querySelector('.horizontal-scroll'), 300)"></button>
                 </div>
-                <div class="journey-card">
-                    <div class="image-container">
-                        <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
-                        <div class="overlay">
-                            <div class="journey-title">Shades Mill</div>
-                            <div class="location-title">Cambridge, ON</div>
+    
+                <div class="heading" style="padding-top: 60px; padding-bottom: 30px;">Budget-Friendly</div>
+                <div class="scroll-wrapper">
+                    <button class="scroll-button left" onclick="scrollHorizontal(this.parentElement.querySelector('.horizontal-scroll'), -300)"></button>
+                    <div class="horizontal-scroll">
+                        <div class="journey-card">
+                            <div class="image-container">
+                                <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
+                                <div class="overlay">
+                                    <div class="journey-title">Shades Mill</div>
+                                    <div class="location-title">Cambridge, ON</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="journey-card">
+                            <div class="image-container">
+                                <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
+                                <div class="overlay">
+                                    <div class="journey-title">Shades Mill</div>
+                                    <div class="location-title">Cambridge, ON</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="journey-card">
+                            <div class="image-container">
+                                <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
+                                <div class="overlay">
+                                    <div class="journey-title">Shades Mill</div>
+                                    <div class="location-title">Cambridge, ON</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="journey-card">
+                            <div class="image-container">
+                                <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
+                                <div class="overlay">
+                                    <div class="journey-title">Shades Mill</div>
+                                    <div class="location-title">Cambridge, ON</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="journey-card">
+                            <div class="image-container">
+                                <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
+                                <div class="overlay">
+                                    <div class="journey-title">Shades Mill</div>
+                                    <div class="location-title">Cambridge, ON</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="journey-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ac orci vitae suscipit.
-                        Aliquam luctus, enim et maximus aliquet.
-                    </div>
-                    <button class="button-bg" style="
-                    position: absolute;
-                    bottom: 15px; 
-                    left: 25px; 
-                    width: 165px !important; 
-                    height: 34px !important;
-                    font-size: 15px;
-                    ">View Trip</button>
-                </div>
-                <div class="journey-card">
-                    <div class="image-container">
-                        <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
-                        <div class="overlay">
-                            <div class="journey-title">Shades Mill</div>
-                            <div class="location-title">Cambridge, ON</div>
-                        </div>
-                    </div>
-                    <div class="journey-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ac orci vitae suscipit.
-                        Aliquam luctus, enim et maximus aliquet.
-                    </div>
-                    <button class="button-bg" style="
-                    position: absolute;
-                    bottom: 15px; 
-                    left: 25px; 
-                    width: 165px !important; 
-                    height: 34px !important;
-                    font-size: 15px;
-                    ">View Trip</button>
-                </div>
-                <div class="journey-card">
-                    <div class="image-container">
-                        <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
-                        <div class="overlay">
-                            <div class="journey-title">Shades Mill</div>
-                            <div class="location-title">Cambridge, ON</div>
-                        </div>
-                    </div>
-                    <div class="journey-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ac orci vitae suscipit.
-                        Aliquam luctus, enim et maximus aliquet.
-                    </div>
-                    <button class="button-bg" style="
-                    position: absolute;
-                    bottom: 15px; 
-                    left: 25px; 
-                    width: 165px !important; 
-                    height: 34px !important;
-                    font-size: 15px;
-                    ">View Trip</button>
-                </div>
-                <div class="journey-card">
-                    <div class="image-container">
-                        <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
-                        <div class="overlay">
-                            <div class="journey-title">Shades Mill</div>
-                            <div class="location-title">Cambridge, ON</div>
-                        </div>
-                    </div>
-                    <div class="journey-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ac orci vitae suscipit.
-                        Aliquam luctus, enim et maximus aliquet.
-                    </div>
-                    <button class="button-bg" style="
-                    position: absolute;
-                    bottom: 15px; 
-                    left: 25px; 
-                    width: 165px !important; 
-                    height: 34px !important;
-                    font-size: 15px;
-                    ">View Trip</button>
-                </div>
-            </div>
-
-            <div class="heading" style="padding-top: 30px;">Budget-Friendly</div>
-            <div class="horizontal-scroll">
-                <div class="journey-card">
-                    <div class="image-container">
-                        <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
-                        <div class="overlay">
-                            <div class="journey-title">Shades Mill</div>
-                            <div class="location-title">Cambridge, ON</div>
-                        </div>
-                    </div>
-                    <div class="journey-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ac orci vitae suscipit.
-                        Aliquam luctus, enim et maximus aliquet.
-                    </div>
-                    <button class="button-bg" style="
-                    position: absolute;
-                    bottom: 15px; 
-                    left: 25px; 
-                    width: 165px !important; 
-                    height: 34px !important;
-                    font-size: 15px;
-                    ">View Trip</button>
-                </div>
-                <div class="journey-card">
-                    <div class="image-container">
-                        <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
-                        <div class="overlay">
-                            <div class="journey-title">Shades Mill</div>
-                            <div class="location-title">Cambridge, ON</div>
-                        </div>
-                    </div>
-                    <div class="journey-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ac orci vitae suscipit.
-                        Aliquam luctus, enim et maximus aliquet.
-                    </div>
-                    <button class="button-bg" style="
-                    position: absolute;
-                    bottom: 15px; 
-                    left: 25px; 
-                    width: 165px !important; 
-                    height: 34px !important;
-                    font-size: 15px;
-                    ">View Trip</button>
-                </div>
-                <div class="journey-card">
-                    <div class="image-container">
-                        <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
-                        <div class="overlay">
-                            <div class="journey-title">Shades Mill</div>
-                            <div class="location-title">Cambridge, ON</div>
-                        </div>
-                    </div>
-                    <div class="journey-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ac orci vitae suscipit.
-                        Aliquam luctus, enim et maximus aliquet.
-                    </div>
-                    <button class="button-bg" style="
-                    position: absolute;
-                    bottom: 15px; 
-                    left: 25px; 
-                    width: 165px !important; 
-                    height: 34px !important;
-                    font-size: 15px;
-                    ">View Trip</button>
-                </div>
-                <div class="journey-card">
-                    <div class="image-container">
-                        <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
-                        <div class="overlay">
-                            <div class="journey-title">Shades Mill</div>
-                            <div class="location-title">Cambridge, ON</div>
-                        </div>
-                    </div>
-                    <div class="journey-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ac orci vitae suscipit.
-                        Aliquam luctus, enim et maximus aliquet.
-                    </div>
-                    <button class="button-bg" style="
-                    position: absolute;
-                    bottom: 15px; 
-                    left: 25px; 
-                    width: 165px !important; 
-                    height: 34px !important;
-                    font-size: 15px;
-                    ">View Trip</button>
-                </div>
-                <div class="journey-card">
-                    <div class="image-container">
-                        <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
-                        <div class="overlay">
-                            <div class="journey-title">Shades Mill</div>
-                            <div class="location-title">Cambridge, ON</div>
-                        </div>
-                    </div>
-                    <div class="journey-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ac orci vitae suscipit.
-                        Aliquam luctus, enim et maximus aliquet.
-                    </div>
-                    <button class="button-bg" style="
-                    position: absolute;
-                    bottom: 15px; 
-                    left: 25px; 
-                    width: 165px !important; 
-                    height: 34px !important;
-                    font-size: 15px;
-                    ">View Trip</button>
-                </div>
-                <div class="journey-card">
-                    <div class="image-container">
-                        <img class="image" src="assets/images/feature-showcase-1.png" alt="Journey Image" />
-                        <div class="overlay">
-                            <div class="journey-title">Shades Mill</div>
-                            <div class="location-title">Cambridge, ON</div>
-                        </div>
-                    </div>
-                    <div class="journey-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dignissim ac orci vitae suscipit.
-                        Aliquam luctus, enim et maximus aliquet.
-                    </div>
-                    <button class="button-bg" style="
-                    position: absolute;
-                    bottom: 15px; 
-                    left: 25px; 
-                    width: 165px !important; 
-                    height: 34px !important;
-                    font-size: 15px;
-                    ">View Trip</button>
+                    <button class="scroll-button right" onclick="scrollHorizontal(this.parentElement.querySelector('.horizontal-scroll'), 300)"></button>
                 </div>
             </div>
         </section>
         <div class="section-divider"></div>
-        <section style="height: 120vh">
-            <div style="
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 40px;
-                padding-bottom: 40px;
-            ">
-                <div style="flex: 1;">
-                    <div class="heading">Become a Partner</div>
-                    <div class="header-description">
-                        Got trail data to share? We’d love it — and so would your fellow hikers!
+        <section>
+            <div style="margin-left: 200px; margin-right: 200px;">
+                <div class="heading" style="padding-bottom: 25px;">Connect with TrailMixr</div>
+                <div class="accordion-panel" style="background: #fff; border-radius: 0px; border-bottom: 1px solid #111; margin-bottom: 0; overflow: hidden; box-shadow: none;">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" style="display: flex; align-items: center; cursor: pointer; padding: 14px 24px; min-height: 40px;">
+                        <span class="accordion-plus" style="font-size: 22px; margin-right: 18px; color: #111; width: 24px; display: flex; align-items: center; justify-content: center;">+</span>
+                        <div class="heading" style="flex: 1; padding: 0; margin: 0; color: #111; font-size: 1.35rem; font-weight: 600;">Become a Partner</div>
                     </div>
-                    <div style="height: 15px;"></div>
-                    <div class="header-description">
-                        Take photos, map the route, or send in soil samples, and we’ll thank you with a free premium
-                        subscription.
+                    <div class="accordion-content" style="display: none; padding: 0 24px 24px 66px; background: #fff;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; gap: 32px;">
+                            <div style="flex: 1;">
+                                <div class="header-description" style="color: #23272f; font-size: 1.15rem !important;">
+                                    Got trail data to share? We'd love it — and so would your fellow hikers!
+                                </div>
+                                <div class="header-description" style="color: #23272f; font-size: 1.15rem !important;">
+                                    Take photos, map the route, or send in soil samples, and we'll thank you with a free premium subscription.
+                                </div>
+                                <div class="button-bg"
+                                    style="margin-top: 15px; font-size: 0.85rem !important; height: 13px !important; width: 120px !important; display: flex; justify-content: center; align-items: center;">
+                                    Get Started</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="button-bg"
-                        style="margin-top: 65px; height: 25px !important; width: 250px !important; display: flex; justify-content: center; align-items: center;">
-                        Get Started</div>
                 </div>
-                <div style="flex-shrink: 0; padding-left: 25px">
-                    <img src="assets/images/partner.png" alt="Partner Image" style="height: 300px;" />
-                </div>
-            </div>
-            <div style="
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 40px;
-            ">
-                <div style="flex: 1;">
-                    <div class="heading">Hello World</div>
-                    <div class="header-description">
-                        Are you a developer? Tap into our free API for easy access to rich environmental trail data -
-                        elevation, ecosystems, weather, and more.
+                <div class="accordion-panel" style="background: #fff; border-radius: 0px; border-bottom: 1px solid #111; margin-bottom: 0; overflow: hidden; box-shadow: none;">
+                    <div class="accordion-header" onclick="toggleAccordion(this)" style="display: flex; align-items: center; cursor: pointer; padding: 14px 24px; min-height: 40px;">
+                        <span class="accordion-plus" style="font-size: 22px; margin-right: 18px; color: #111; width: 24px; display: flex; align-items: center; justify-content: center;">+</span>
+                        <div class="heading" style="flex: 1; padding: 0; margin: 0; color: #111; font-size: 1.35rem; font-weight: 600;">Developer API</div>
                     </div>
-                    <div class="button-bg"
-                        style="margin-top: 65px; height: 25px !important; width: 250px !important; display: flex; justify-content: center; align-items: center;">
-                        Get Started</div>
-                </div>
-                <div style="flex-shrink: 0; padding-left: 25px">
-                    <img src="assets/images/api.png" alt="Partner Image" style="height: 300px;" />
+                    <div class="accordion-content" style="display: none; padding: 0 24px 24px 66px; background: #fff;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; gap: 32px;">
+                            <div style="flex: 1;">
+                                <div class="header-description" style="color: #23272f; font-size: 1.15rem !important;">
+                                    Are you a developer? Tap into our free API for easy access to rich environmental trail data - elevation, ecosystems, weather, and more.
+                                </div>
+                                <div class="button-bg"
+                                    style="margin-top: 15px; font-size: 0.85rem !important; height: 13px !important; width: 120px !important; display: flex; justify-content: center; align-items: center;">
+                                    Get Started</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
         <div class="section-divider"></div>
-        <section style="height: 60vh">
-            <div class="heading" style="text-align: center !important; justify-content: center !important;">Join our
+        <section>
+            <div class="heading" 
+            style="color: #ffffff; text-align: center !important; justify-content: center !important;">Join our
                 Newsletter</div>
             <div class="header-description" style="
                 text-align: center;
                 max-width: 700px;
                 margin: 0 auto;
                 word-wrap: break-word;
+                color: #f2f2f2;
             ">
                 Receive emails for important environmental news, app updates, community-created journeys and more.
             </div>
@@ -427,19 +239,48 @@
     </main>
 
     <script>
-        // Load the header
-        fetch("header.html")
-            .then(res => res.text())
+        // Load header
+        fetch('header.html')
+            .then(response => response.text())
             .then(data => {
-                document.getElementById("header-placeholder").innerHTML = data;
+                document.getElementById('header-placeholder').innerHTML = data;
             });
 
-        // Load the footer
+        // Load footer
         fetch("footer.html")
             .then(res => res.text())
             .then(data => {
                 document.getElementById("footer-placeholder").innerHTML = data;
             });
+
+        // Horizontal scroll function
+        function scrollHorizontal(container, distance) {
+            container.scrollBy({
+                left: distance,
+                behavior: 'smooth'
+            });
+        }
+
+        // Accordion logic
+        function toggleAccordion(header) {
+            const panel = header.parentElement;
+            const content = panel.querySelector('.accordion-content');
+            const plus = header.querySelector('.accordion-plus');
+            const allPanels = document.querySelectorAll('.accordion-panel');
+            allPanels.forEach(p => {
+                if (p !== panel) {
+                    p.querySelector('.accordion-content').style.display = 'none';
+                    p.querySelector('.accordion-plus').textContent = '+';
+                }
+            });
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                plus.textContent = '+';
+            } else {
+                content.style.display = 'block';
+                plus.textContent = '–';
+            }
+        }
     </script>
 </body>
 
