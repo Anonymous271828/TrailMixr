@@ -12,9 +12,75 @@
 <body>
     <div id="header-placeholder"></div>
 
-    <main>
+    <main>        
+        <section style="display: none;"></section>
         <section>
-            
+            <div class="title" style="color: #303030 !important; margin-top: 100px; align-items: center; justify-content: center; text-align: center;">Plans</div>
+            <div style="display: flex; justify-content: center; margin-bottom: 30px;">
+                <div class="custom-dropdown">
+                    <div class="dropdown-header" onclick="toggleDropdown()">
+                        <span id="selected-currency">USD ($)</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <div class="dropdown-options" id="dropdown-options">
+                        <div class="dropdown-option" onclick="selectCurrency('USD', '$')">USD ($)</div>
+                        <div class="dropdown-option" onclick="selectCurrency('EUR', '€')">EUR (€)</div>
+                        <div class="dropdown-option" onclick="selectCurrency('GBP', '£')">GBP (£)</div>
+                        <div class="dropdown-option" onclick="selectCurrency('CAD', 'C$')">CAD (C$)</div>
+                        <div class="dropdown-option" onclick="selectCurrency('AUD', 'A$')">AUD (A$)</div>
+                        <div class="dropdown-option" onclick="selectCurrency('JPY', '¥')">JPY (¥)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="subscription-container" style="margin-bottom: 100px;">
+                <div class="subscription">
+                    <label class="plan">Standard</label>
+                    <label class="price">
+                        $0.00
+                        <span style="font-weight: 500; font-size: 20px !important;">/ mo</span>
+                    </label>
+                    <div class="plan-features" style="text-align: left !important; padding-left: 45px !important; align-self: flex-start !important;">
+                        <span>‣ Location Planner</span>
+                        <span>‣ View TrailMixr Free Articles</span>
+                        <span>‣ Post to TrailMixr Community</span>
+                    </div>
+                    <button class="button-bg" style="margin-top: auto; margin-bottom: 30px; width: 80% !important; height: 45px !important;">Select</button>
+                </div>
+    
+                <div class="subscription" style="background-color: #303446; color: #ffffff;">
+                    <label class="plan">Enthusiast</label>
+                    <label class="price">
+                        $10.00
+                        <span style="font-weight: 500; font-size: 20px !important;">/ mo</span>
+                    </label>
+                    <div class="plan-features" style="text-align: left !important; padding-left: 45px !important; align-self: flex-start !important;">
+                        <span style="color: #ffffff !important;">‣ Access to Full Trail Planner</span>
+                        <span style="color: #ffffff !important;">‣ Access to All Articles</span>
+                        <span style="color: #ffffff !important;">‣ No Ads</span>
+                        <span style="color: #ffffff !important;">‣ Community Badge</span>
+                        <span style="color: #ffffff !important;">‣ Priority Customer Support</span>
+                        <span style="color: #ffffff !important;">‣ Access to the Newest Trails</span>
+                    </div>
+                    <button class="button-bg" style="background-color: #ffffff !important; color: #303030 !important; margin-top: auto; margin-bottom: 30px; width: 80% !important; height: 45px !important;">Select</button>
+                </div>
+
+                <div class="subscription">
+                    <label class="plan">Scientist</label>
+                    <label class="price">
+                        $0.00
+                        <span style="font-weight: 500; font-size: 20px !important;">/ mo</span>
+                    </label>
+                    <div class="plan-features" style="text-align: left !important; padding-left: 45px !important; align-self: flex-start !important;">
+                        <span>‣ Access to Full Trail Planner</span>
+                        <span>‣ Access to Research Articles</span>
+                        <span>‣ No Ads</span>
+                        <span>‣ Everything in Standard Plan</span>
+                        <span>‣ Conditions Apply</span>
+                    </div>
+                    <button class="button-bg" style="margin-top: auto; margin-bottom: 30px; width: 80% !important; height: 45px !important;">Select</button>
+                </div>
+            </div>
+
         </section>
 
         <div id="footer-placeholder"></div>
@@ -34,5 +100,33 @@
             .then(data => {
                 document.getElementById("footer-placeholder").innerHTML = data;
             });
+
+        // Custom dropdown functionality
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown-options');
+            const arrow = document.querySelector('.dropdown-arrow');
+            
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                dropdown.classList.add('show');
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function selectCurrency(currency, symbol) {
+            document.getElementById('selected-currency').textContent = `${currency} (${symbol})`;
+            toggleDropdown();
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.custom-dropdown');
+            if (!dropdown.contains(event.target)) {
+                document.getElementById('dropdown-options').classList.remove('show');
+                document.querySelector('.dropdown-arrow').style.transform = 'rotate(0deg)';
+            }
+        });
     </script>
 </body>
