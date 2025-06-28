@@ -31,10 +31,13 @@ GEMINI_KEY = os.getenv("API_KEY")
 TOMORROW_KEY = os.getenv("API_KEY_TOMORROW")
 class Calculate:
 
-    DISTANCE_THRESH = 40
+    DISTANCE_THRESH = 40 #lowk, idk what this does. i think im not using it anymore, but im not sure
     DISTANCE_THRESH_FOR_EVENTS = 40
 
     def __init__(self):
+        """
+        init function for Calculate class
+        """
         self.ontario_forests = gpd.read_file("additional/ontario_forests_dir/FRI_Tile_Index.shp").to_crs(32617)
         self.ontario_trails = gpd.read_file("additional/Non_Sensitive.gdb").to_crs(32617)
         self.ontario_parks = gpd.read_file("additional/ontario_trails_dir/PROV_PARK_REGULATED.shp").to_crs(32617)
@@ -67,7 +70,13 @@ class Calculate:
         self.hours = 24
         self.veg_grad = None
 
-    def select_trail(self, name=None, park=None, bbox=None):
+    def select_trail(self, name=None, park=None):
+        """
+        function that turns the trail name into a useable geopandas df. thank goodness python is being used
+        users should be able to choose a name of a trail, or our beautiful optimization algorithm decides for them
+        :param name: name of the trail
+        :param park: name of the park
+        """
         if name is not None:
             self.selected_trail = self.ontario_trails[self.ontario_trails["TRAIL_NAME"].str.contains(name, case=False, na=False)].to_crs(32617)
             print(self.selected_trail)
@@ -94,6 +103,7 @@ class Calculate:
         elif park is not None:
             self.ontario_parks = self.ontario_parks[self.ontario_parks["PARK_NAME"].str.contains(name, case=False, na=False)]
 
+    @DeprecationWarning
     def organize_events(self, events):
         # FOR WHEN WE ACTUALLY GET A DATASET
         #self.events = self.events[self.events["TRAIL_NAME"].str.contains("|".join(events), case=False, na=False)]
@@ -117,6 +127,11 @@ class Calculate:
             self.events.append(Event(indexes[i], j, distance.loc[indexes[i]]))
 
     def optimize(self, days):
+        """
+        the algo used to find the best possible plan for a trail. plz don't leak, its super genius
+        :param days: the amount of days that the trail is expected to take.
+        :return: the stops and the final score. i should also probably include the graph
+        """
 
         # Function to recurse through all campsite locations
         smallest_var = 10000000000000
@@ -131,8 +146,17 @@ class Calculate:
                 if variance < smallest_var:
                     smallest_var = variance
                     combo = i
+                    final = self.optimize_stops(days) # this is not ideal and should def be changed, but im lowk too tired rn
+
+        return combo, final # the reason why this fucking sucks is because it doesn't account for all the possibilities
+                            # it also sucks because its a fucking nested tuple
 
     def optimize_stops(self, days):
+        """
+        optimizes the stops
+        :param days: the amount of days the trail is expected to take
+        :return: the stops and the k value
+        """
         smallest_var = 10000000000000
         self.best_k = []
         for i in combinations(self.selected_breaks, days):
@@ -147,8 +171,13 @@ class Calculate:
                     smallest_var = variance
                     k = self.optimize_main()
                     self.best_k = i, k
-
+    @DeprecationWarning
     def index_campsites(self, campsites, campsite_hours):
+        """
+        a function to find all the campsites
+        :param campsites: the list of all possible campsites
+        :param campsite_hours: a list of when one is expected to use them
+        """
         if not self.selected_campsites:
             raise ValueError("No campsites selected. Please select campsites first.")
         self.stops = []
@@ -158,6 +187,10 @@ class Calculate:
                 self.stops.append(Event(x.index, x.distance_along_path, x.distance_from_trail, campsite_hours[i]))
         
     def extract_data(self):
+        """
+        a function to extract all the vegetation density data. it also gets the necessary elevation data
+        :return: the vegetation density grid and the x and y edges
+        """
         buffered_trail = self.selected_trail.buffer(10)
         l = time.time()
 
@@ -223,13 +256,25 @@ class Calculate:
         return veg_density_grid, x_edges, y_edges
 
     def get_copc_laz(self):
+        """
+        a function to automate the process of collecting all the necessary .copc.laz files
+        will download to aws the moment we get everything
+        """
         API_PATTERN = "https://download.fri.mnrf.gov.on.ca/api/api/Download/geohub/laz/utm16/1kmZ164040565102023L.copc.laz"
         intersection = self.ontario_forests[self.ontario_forests.intersects(self.selected_trail.union_all())]
         # for i in intersection["Tilename"]:
         #     if not os.path.isfile("additiona/forestry_map/{}.copc.laz".format(i)):
         #         requests.get("https://download.fri.mnrf.gov.on.ca/api/api/Download/geohub/laz/utm16/{}.copc.laz".format(i)).content
-
+    @DeprecationWarning
     def overlay_weather_over_veg(self, veg_density_grid, weather_scores, xx, yy):
+        """
+        outdated function that had the hopes of making optimization algo O(1) during hackathon. keeping it around just
+        in case I need it.
+        :param veg_density_grid: the vegetation density grid
+        :param weather_scores: the weather scores per hour
+        :param xx: the x-size of the grid
+        :param yy: the y-size of the grid
+        """
         trail = self.selected_trail.union_all()
         points_flat = [shapely.geometry.Point(x, y) for x, y in zip(xx.flatten(), yy.flatten())]
         #print(len(points_flat))
@@ -252,6 +297,13 @@ class Calculate:
         #print(diff_grid)
         
     def overlay_weather_over_veg_secondary(self, veg_density_grid, x_edge, y_edge):
+        """
+        puts the weather map adjusted for time and overlays it over the vegetation density grid to get a difference grid
+        :param veg_density_grid: the vegetation density grid
+        :param x_edge: x-size of the grid
+        :param y_edge: y-size of the grid
+        :return: the difference of the grids and the weather grid(?) idk why im doing that
+        """
         l = time.time()
 
         legs, new_trail = self.build_legs(self.stops, self.stops_duration)
@@ -276,9 +328,6 @@ class Calculate:
         route_weather = resp.json()
 
         print(route_weather)
-        #route_data = route_weather["data"]["timelines"][0]["intervals"]
-        #print(route_data)
-        #print(route_data.iloc(0))
         amount_of_intervals = sum(self.legs_duration) / 60 # CHANGE TO 5 MIN LATER
         segments = self.split_linestring_equal_parts(self.selected_trail['geometry'].union_all(), int(amount_of_intervals))
 
@@ -341,7 +390,6 @@ class Calculate:
         yi = np.linspace(y_edge[0], y_edge[-1], ny)
         xi_grid, yi_grid = np.meshgrid(xi, yi)
 
-        # Interpolate z-values onto the grid (using nearest for speed)
         z_grid = griddata((xl, yl), zl, (xi_grid, yi_grid),  method='nearest', fill_value=0)
 
         flat_pts = np.column_stack((xi_grid.ravel(), yi_grid.ravel()))
@@ -349,21 +397,34 @@ class Calculate:
 
         z_grid = np.where(mask, z_grid, np.nan)
 
-        # Subtract the interpolated z-values
         return veg_density_grid - z_grid, z_grid
 
     def split_linestring_equal_parts(self, line, num_parts):
-        # Compute distances at which to cut
+        """
+        splits the linestring into equal parts
+        :param line: the lineString
+        :param num_parts: the amount of parts
+        :return: a multilinestring of the line containing num_parts elements
+        """
         distances = np.linspace(0, line.length, num_parts + 1)
 
-        # Interpolate points at those distances
         points = shapely.geometry.MultiPoint([line.interpolate(d) for d in distances[1:-1]]) # Exclude start and end
         return split(line, points)
 
     def get_difference_in_elevation(self):
+        """
+        gets the difference in elevation. NOTE THAT EXTRACT DATA MUST, MUST FUCKING BE CALLED BEFORE THIS FUNCTION
+        CAN BE USED. I DON'T FUCKING CARE THAT THIS IS BAD PRACTICE, DEAL WITH IT. I'M NOT CHANGING IT FOR THE NEXT
+        TWO FUCKING WEEKS.
+        :return: the difference in elevation - allTrails style
+        """
         return max(self.trail_elevation) - min(self.trail_elevation)
 
     def get_elevation_graph(self):
+        """
+        display a elevation graph. lowk, this is vibe-coded bc i was too lazy. just figure it out plz
+        :return: the elevation graph encrypted
+        """
         coords = np.array([(pt.x, pt.y, pt.z) for pt in self.trail_coords])
         deltas = np.diff(coords[:, :2], axis=0)
         segment_lengths = np.linalg.norm(deltas, axis=1)
@@ -378,14 +439,34 @@ class Calculate:
         plt.ylabel("Elevation (Z)")
         plt.grid(True)
         plt.tight_layout()
+        buf = io.BytesIO()
         plt.savefig("C:/Users/skwak/Downloads/elevation.png", format='png', bbox_inches='tight')
 
+        plt.close()
+        buf.seek(0)
+        img_data = base64.b64encode(buf.read()).decode('utf-8')
+
+        return img_data
+
     def calc_var(self, dataset):
+        """
+        Mans made a function to calculate variance, lowkey fam-Chat-GPT really carried me ’cause I lowkey forgot how
+        variance was even calculated
+        :param dataset: the dataset. currently using the difference in distances
+        :return: the variance
+        """
         mean = sum(dataset) / len(dataset)
         variance = sum((x - mean) ** 2 for x in dataset) / len(dataset)
         return variance
 
     def rotation_matrix_90ccw_about_point(self, cx, cy):
+        """
+        rotates the matrix 90 degrees counter clockwise about a given point
+        :param cx: the point's x value
+        :param cy: the points y-value
+        :return: the rotation matrix that u can multiply the original matrix by. lowk fam, we should probs put this in
+        a super cool math calculation class. like the sol super cal class. yeah thats pretty cool
+        """
         # Rotation 90° CCW
         rotation1 = np.array([
             [0, 1, 0, 0],
@@ -415,6 +496,12 @@ class Calculate:
         return " ".join(f"{v:.10f}" for v in M.flatten())
 
     def build_legs(self, stops_coords, stops_duration):
+        """
+        split the LineString trail into legs divided by each stop
+        :param stops_coords:
+        :param stops_duration:
+        :return: the legs (multilinestring)
+        """
         trail = self.selected_trail.geometry.union_all()
 
         stops = list(map(shapely.geometry.Point, stops_coords))
@@ -444,15 +531,29 @@ class Calculate:
         return legs, trail
 
     def calculate_time(self, segment):
+        """
+        the amount of time it takes to traverse the segment. hopefully, ill also include elevation data in this calc
+        :param segment: the segment or leg
+        :return: the distance of the segment
+        """
         return segment.length
 
     def optimize_main(self):
+        """
+        the main function for the optimize function. maybe get a graph in here.
+        :return: the k value, or the optimized value
+        """
         x, g, h = self.extract_data()
         k, _ = self.overlay_weather_over_veg_secondary(x, g, h)
 
         return np.nansum(k)
 
 def main(plan_contents):
+    """
+    the main function for the calculator
+    :param plan_contents: plan, divided into a regex by gemini
+    :return: the k value, or the optimized value and the graph
+    """
     # contents will contain the file contents upload
     # user input is very risky so ensure nothing can go wrong
     # like the user can prompt gemini
@@ -591,8 +692,16 @@ def main(plan_contents):
 
     return {"score": float(np.nansum(k)), "img_data":img_data}
 
-
+@DeprecationWarning
 def plot_trail_with_diff_overlay(diff_grid, x_edges, y_edges, trail):
+    """
+    a function used to plot the trail and the difference. keeping it bc im nostalgic and might update all graphing funcs
+    :param diff_grid: the difference grid between vegetation density and weather
+    :param x_edges: the x-edge length
+    :param y_edges: the y-edge length
+    :param trail: the trail lineString
+    :return: the matplotlib graph
+    """
 
     fig, ax = plt.subplots(figsize=(10, 8))
 
