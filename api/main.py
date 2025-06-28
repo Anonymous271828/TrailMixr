@@ -15,6 +15,7 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcol
 from api.weather import Weather
+from api.campsites import Campsite, Event, Day
 from google import genai
 from shapely.ops import snap, split
 from scipy.stats import binned_statistic_2d
@@ -51,6 +52,8 @@ class Calculate:
         self.schedule = []
         self.lat, self.long = None, None
         self.combined = []
+
+        self.best_k = None
 
 
         # ALL SECONDARY VARIABLES
@@ -114,6 +117,8 @@ class Calculate:
             self.events.append(Event(indexes[i], j, distance.loc[indexes[i]]))
 
     def optimize(self, days):
+
+        # Function to recurse through all campsite locations
         smallest_var = 10000000000000
         for i in combinations(self.selected_campsites, days):
             temp_distances = [i[0]]
@@ -129,6 +134,7 @@ class Calculate:
 
     def optimize_stops(self, days):
         smallest_var = 10000000000000
+        self.best_k = []
         for i in combinations(self.selected_breaks, days):
             temp_distances = [i[0]]
             for j in range(1, len(i)):
@@ -139,7 +145,8 @@ class Calculate:
                 variance = self.calc_var(temp_distances)
                 if variance < smallest_var:
                     smallest_var = variance
-                    combo = i
+                    k = self.optimize_main()
+                    self.best_k = i, k
 
     def index_campsites(self, campsites, campsite_hours):
         if not self.selected_campsites:
@@ -439,43 +446,16 @@ class Calculate:
     def calculate_time(self, segment):
         return segment.length
 
+    def optimize_main(self):
+        x, g, h = self.extract_data()
+        k, _ = self.overlay_weather_over_veg_secondary(x, g, h)
 
-class Campsite:
-    def __init__(self, index, distance_along_path, distance_from_trail):
-        self.index = index
-        self.distance_along_path = distance_along_path
-        self.distance_from_trail = distance_from_trail
-
-    def __repr__(self):
-        return f"Campsite(index={self.index}, distance_along_path={self.distance_along_path}, distance_from_trail={self.distance_from_trail})"
-
-class Day:
-    def __init__(self, sunset, sunrise, weatherscore, events):
-        self.hours = {1:False, 2:False, 3:False, 4:False, 5:False, 6:False, 7:False, 8:False, 9:False, 10:False, 11:False, 12:False, 13:False, 14:False, 15:False, 16:False, 17:False, 18:False, 19:False, 20:False, 21:False, 22:False, 23:False}
-        self.weatherscore = weatherscore
-        self.stop = None
-    def change_hour(self, hour, val):
-        if hour in self.hours:
-            self.hours[hour] = val
-        else:
-            raise ValueError("Hour must be between 1 and 23")
-        
-    def get_hour(self, hour):
-        return self.hours.get(hour, False)
-    
-class Event:
-    def __init__(self, index, distance_along_path, distance_from_trail, hours=None, location=None):
-        self.name = index
-        self.id = id
-        self.hours = hours
-        self.location = location
-
+        return np.nansum(k)
 
 def main(plan_contents):
     # contents will contain the file contents upload
     # user input is very risky so ensure nothing can go wrong
     # like the user can prompt gemini
-    print("AAAAA")
     client = genai.Client(api_key=GEMINI_KEY)
 
     while True:
