@@ -45,7 +45,8 @@ class Calculate:
 
         self.selected_trail = None
         self.selected_park = None
-        self.selected_campsites = []
+        self.selected_campsites = [] # list for all campsites. DO NOT DEPRECATE
+        self.selected_breaks = []  # list for all campsites. DO NOT DEPRECATE
 
         self.schedule = []
         self.lat, self.long = None, None
@@ -53,14 +54,15 @@ class Calculate:
 
 
         # ALL SECONDARY VARIABLES
-        self.stops = []
-        self.stops_duration = []
-        self.legs_duration = []
+        self.trail_elevation = [] # list of z-values from PDAL pipeline
+        self.trail_coords = [] # secondary var to elevation
+        self.stops = [] # must be coordinates
+        self.stops_duration = [] # must be time in 5 minutes
+        self.legs_duration = [] # must be time in 5 minutes
         self.distances_along_trail = 3500
         self.speed = 1.29
         self.hours = 24
         self.veg_grad = None
-
 
     def select_trail(self, name=None, park=None, bbox=None):
         if name is not None:
@@ -110,24 +112,31 @@ class Calculate:
         self.events = []
         for i, j in enumerate(distance_along_path):
             self.events.append(Event(indexes[i], j, distance.loc[indexes[i]]))
-        
-    
-    def recurse_campsites(self, trail, days):
-        if days <= 0:
-            return []
-        else:
-            for i in range(days):
-                temp_weather = Weather(i, self.lat, self.long, 0)
-                self.schedule.append(
-                    Day(
-                        temp_weather.find_sunset(), 
-                        temp_weather.find_sunrise(), 
-                        temp_weather.score_each_hour()
-                        ))
-            smallest_var = 100000
-            combo = 0
-            for i in combinations(self.selected_campsites, days):
-                variance = self.calc_var([i[j] - i[j+1] for j in range(len(i)-1)])
+
+    def optimize(self, days):
+        smallest_var = 10000000000000
+        for i in combinations(self.selected_campsites, days):
+            temp_distances = [i[0]]
+            for j in range(1, len(i)):
+                temp_distances.append(abs(i[j].distance_along_path - i[j+1].distance_along_path))
+                if temp_distances[-1] < temp_distances[-2]:
+                    break
+            else:
+                variance = self.calc_var(temp_distances)
+                if variance < smallest_var:
+                    smallest_var = variance
+                    combo = i
+
+    def optimize_stops(self, days):
+        smallest_var = 10000000000000
+        for i in combinations(self.selected_breaks, days):
+            temp_distances = [i[0]]
+            for j in range(1, len(i)):
+                temp_distances.append(abs(i[j].distance_along_path - i[j + 1].distance_along_path))
+                if temp_distances[-1] < temp_distances[-2]:
+                    break
+            else:
+                variance = self.calc_var(temp_distances)
                 if variance < smallest_var:
                     smallest_var = variance
                     combo = i
@@ -140,17 +149,6 @@ class Calculate:
             if self.selected_campsites[i] in campsites:
                 x = self.selected_campsites[i]
                 self.stops.append(Event(x.index, x.distance_along_path, x.distance_from_trail, campsite_hours[i]))
-
-    def extract_legs(self, trail): # defunct function
-        if isinstance(trail, shapely.geometry.LineString):
-            return [[pt[1], pt[0]] for pt in trail.coords]
-        elif isinstance(trail, shapely.geometry.MultiLineString):
-            legs = []
-            for line in trail:
-                legs.extend([[pt[1], pt[0]] for pt in line.coords])
-            return legs
-        else:
-            raise TypeError("Geometry must be LineString or MultiLineString")
         
     def extract_data(self):
         buffered_trail = self.selected_trail.buffer(10)
@@ -183,9 +181,22 @@ class Calculate:
         
         arrays = pipeline.arrays[0]
         veg_points = arrays[np.isin(arrays['Classification'], [4, 5])]
-        print(veg_points)
+        elevation = arrays["Z"]
+        all_points_coord = [shapely.geometry.Point(arrays["X"][i], arrays["Y"][i], elevation[i]) for i in range(len(elevation))]
+        print(elevation.shape)
+        print("ELEVATION: {}".format(elevation))
 
         buffer = buffered_trail.union_all()
+        print(len(buffer.exterior.coords), sum(len(interior.coords) for interior in buffer.interiors))
+
+        tree = shapely.strtree.STRtree(all_points_coord)
+
+        matches = tree.query(buffer)
+
+        trail_coords = [pt for pt in matches if pt.intersects(buffer)]
+
+        self.trail_elevation = [pt.z for pt in trail_coords]
+        self.trail_coords = trail_coords
         
         x = veg_points['X']
         y = veg_points['Y']
@@ -202,39 +213,6 @@ class Calculate:
             bins=[x_edges, y_edges]
         )
 
-        transform = rasterio.transform.from_origin(
-            x_min,
-            y_max,
-            res,
-            res 
-        )
-
-        # mask = rasterio.features.geometry_mask(
-        #     [shapely.geometry.mapping(buffer)],
-        #     out_shape=veg_density_grid.shape,
-        #     transform=transform,
-        #     invert=False
-        # )
-
-        #veg_density_grid[~mask] = np.nan
-
-        mask = ~np.isnan(veg_density_grid)
-        rows, cols = np.where(mask)
-        values = veg_density_grid[mask]
-
-        l = time.time()
-        # cmap = mcol.LinearSegmentedColormap.from_list("BlueRed", ["blue", "red"])
-        # cmap.set_bad(color='white')
-        #
-        # plt.figure(figsize=(12,12))
-        # plt.scatter(cols, rows, c=values, s=1, cmap='terrain',plotnonfinite=True)
-        # plt.gca().invert_yaxis()  # match image orientation if needed
-        # plt.colorbar(label='Value')
-        # plt.savefig("C:/Users/skwak/Downloads/veg2.png", format='png', bbox_inches='tight')
-        print("Time spent creating veg2 graph: " + str(time.time() - l))
-
-
-        #graph(veg_density_grid, "C:/Users/skwak/Downloads/veg_density.png")
         return veg_density_grid, x_edges, y_edges
 
     def get_copc_laz(self):
@@ -268,27 +246,6 @@ class Calculate:
         
     def overlay_weather_over_veg_secondary(self, veg_density_grid, x_edge, y_edge):
         l = time.time()
-        # weather_array = np.array([
-        #     weather_scores[hour] for hour in range(int(self.hours))
-        # ])
-        #
-        # self.stops = []
-        # compensator = self.hours - sum([x.hours for x in self.stops])
-        # grid_to_weather = veg_density_grid.shape[0] // compensator
-        #
-        # weather_array = np.repeat(weather_array, grid_to_weather)
-        # if len(weather_array) < veg_density_grid.shape[0]:
-        #     weather_array = np.append(
-        #         weather_array, [weather_array[-1]] * (len(veg_density_grid.flatten()) - len(weather_array))
-        #     )
-        #
-        # for i in range(len(self.stops)):
-        #     for j in range(1, self.hours):
-        #         if self.stops[i].distance_along_path < self.distances_along_trail / compensator * j:
-        #             change_points = np.where(weather_array[:-1] != weather_array[1:])[0] + 1
-        #             groups = np.split(weather_array, change_points)
-        #             groups[j] = groups[j][:-self.stops[i].hours * grid_to_weather]
-        #             weather_array = np.concatenate(groups)
 
         legs, new_trail = self.build_legs(self.stops, self.stops_duration)
 
@@ -396,13 +353,30 @@ class Calculate:
         points = shapely.geometry.MultiPoint([line.interpolate(d) for d in distances[1:-1]]) # Exclude start and end
         return split(line, points)
 
+    def get_difference_in_elevation(self):
+        return max(self.trail_elevation) - min(self.trail_elevation)
 
+    def get_elevation_graph(self):
+        coords = np.array([(pt.x, pt.y, pt.z) for pt in self.trail_coords])
+        deltas = np.diff(coords[:, :2], axis=0)
+        segment_lengths = np.linalg.norm(deltas, axis=1)
+        distance = np.insert(np.cumsum(segment_lengths), 0, 0)
+
+        elevation = coords[:, 2]
+
+        plt.figure(figsize=(10, 4))
+        plt.plot(distance, elevation, marker='o', color='green')
+        plt.title("Elevation Profile")
+        plt.xlabel("Distance (units)")
+        plt.ylabel("Elevation (Z)")
+        plt.grid(True)
+        plt.tight_layout()
+        plt.savefig("C:/Users/skwak/Downloads/elevation.png", format='png', bbox_inches='tight')
 
     def calc_var(self, dataset):
         mean = sum(dataset) / len(dataset)
         variance = sum((x - mean) ** 2 for x in dataset) / len(dataset)
         return variance
-
 
     def rotation_matrix_90ccw_about_point(self, cx, cy):
         # Rotation 90° CCW
@@ -461,7 +435,6 @@ class Calculate:
             })
 
         return legs, trail
-
 
     def calculate_time(self, segment):
         return segment.length
@@ -554,8 +527,6 @@ def main(plan_contents):
         except Exception as e:
             print(e)
             print("Please try again later")
-
-    # Parse sections using defined delimiters
     try:
         exclam = output.index("!")
         at = output.index("@")
@@ -568,7 +539,6 @@ def main(plan_contents):
         other_info = output[hash_ + 1:star]
         lat_long = output[star + 1:]
 
-        # Parse individual fields
         campsites = campsites.split("|")
         coords_in = [
             tuple(map(float, coord.split(",")))
@@ -590,13 +560,6 @@ def main(plan_contents):
         print("Failed to parse response:", str(e))
         raise
 
-    # Output structure
-    #print("Campsites:", campsites)
-    #print("Stop Coordinates:", coords_in)
-    #print("Stop Times:", coords_time)
-    #print("Other Info:", other_info)
-    #print("Park Coordinates:", lat, long)
-
     global calculate
 
     calculate.stops = coords_in
@@ -605,7 +568,6 @@ def main(plan_contents):
     calculate.hours = int(other_info[2])
 
     calculate.select_trail(name="Mizzy Lake Trail")
-    #calculate.index_campsites(campsites, [3]*len(campsites))
     weather = Weather(other_info[0], lat, long, int(other_info[2]))
     print(weather.score_each_hour())
     x,g,h = calculate.extract_data()
@@ -614,7 +576,6 @@ def main(plan_contents):
     print(np.nansum(k))
     print("AAA")
 
-    #fig = plot_trail_with_diff_overlay(x, g, h, calculate.selected_trail)
     l = time.time()
     cmap = mcol.LinearSegmentedColormap.from_list("BlueRed", ["blue", "red"])
     cmap.set_bad(color='white')
@@ -633,7 +594,6 @@ def main(plan_contents):
     print("Time spent creating veg2 graph: " + str(time.time() - l))
 
     plt.savefig(buf, format='png', bbox_inches='tight')
-    #fig.savefig("C:/Users/skwak/Downloads/yay.png", format='png', bbox_inches='tight')
     plt.close()
     buf.seek(0)
     img_data = base64.b64encode(buf.read()).decode('utf-8')
@@ -677,14 +637,3 @@ def plot_trail_with_diff_overlay(diff_grid, x_edges, y_edges, trail):
     ax.axis("off")
 
     return fig
-
-
-def graph(data, name):
-    fig, ax = plt.subplots(figsize=(10, 10))
-    data.plot(ax=ax, linewidth=3, color='green')
-
-    ax.set_axis_off()
-
-    plt.savefig(name, bbox_inches='tight', pad_inches=0.1)
-    plt.close()
-calculate = Calculate()
