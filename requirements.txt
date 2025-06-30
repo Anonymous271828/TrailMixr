@@ -8,4 +8,5 @@ pdal
 requests
 python-dotenv
 scipy
-google-generativeai 
+google-genai
+django-cors-headers
