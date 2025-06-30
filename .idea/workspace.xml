@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89534bfb-f443-4b6b-b4ae-28c110d6dde2" name="Changes" comment="fuck u ethan. ur fucking welcome, i just finished this STUPID docstrings. like we're not even a company yet, me no like the corporate stuff.&#10;&#10;Signed-off-by: fucking Sol Kwak &lt;141194803+anonymous271828@users.noreply.github.com&gt;">
+    <list default="true" id="89534bfb-f443-4b6b-b4ae-28c110d6dde2" name="Changes" comment="made gitignore allow the .gbd file to be pushed. idk why u included that">
+      <change afterPath="$PROJECT_DIR$/api/secrets.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/main.py" afterDir="false" />
     </list>
@@ -35,27 +36,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Django Server.TrailMixr.executor&quot;: &quot;Run&quot;,
-    &quot;Python.OR-Tools Test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/skwak/PycharmProjects/TrailMixr/additional&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Django Server.TrailMixr.executor": "Run",
+    "Python.OR-Tools Test.executor": "Run",
+    "Python.main.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/skwak/PycharmProjects/TrailMixr/api",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\skwak\PycharmProjects\TrailMixr\api" />
       <recent name="C:\Users\skwak\PycharmProjects\TrailMixr\additional" />
       <recent name="C:\Users\skwak\PycharmProjects\TrailMixr" />
       <recent name="C:\Users\skwak\PycharmProjects\TrailMixr\additional\jeffs_maps" />
@@ -149,7 +151,7 @@
       <workItem from="1750887373928" duration="23766000" />
       <workItem from="1750947725007" duration="37566000" />
       <workItem from="1751028383287" duration="16483000" />
-      <workItem from="1751212374767" duration="8004000" />
+      <workItem from="1751212374767" duration="14689000" />
     </task>
     <task id="LOCAL-00001" summary="ensured graph is visible now.">
       <option name="closed" value="true" />
@@ -191,7 +193,23 @@
       <option name="project" value="LOCAL" />
       <updated>1751155087109</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="stuff">
+      <option name="closed" value="true" />
+      <created>1751249109011</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1751249109011</updated>
+    </task>
+    <task id="LOCAL-00007" summary="made gitignore allow the .gbd file to be pushed. idk why u included that">
+      <option name="closed" value="true" />
+      <created>1751249288898</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1751249288898</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,7 +242,9 @@
     <MESSAGE value="idek what i added. sum cool stuff i guess&#10;&#10;Signed-off-by: Sol Kwak &lt;141194803+anonymous271828@users.noreply.github.com&gt;" />
     <MESSAGE value="Mans just added some optimization, bare docstrings in campsites.py and weather.py. Big thanks to Mr. Milardovic for teaching me that – the yute literally saved me, fam.&#10;&#10;Signed-off-by: Sol Kwak &lt;141194803+anonymous271828@users.noreply.github.com&gt;" />
     <MESSAGE value="fuck u ethan. ur fucking welcome, i just finished this STUPID docstrings. like we're not even a company yet, me no like the corporate stuff.&#10;&#10;Signed-off-by: fucking Sol Kwak &lt;141194803+anonymous271828@users.noreply.github.com&gt;" />
-    <option name="LAST_COMMIT_MESSAGE" value="fuck u ethan. ur fucking welcome, i just finished this STUPID docstrings. like we're not even a company yet, me no like the corporate stuff.&#10;&#10;Signed-off-by: fucking Sol Kwak &lt;141194803+anonymous271828@users.noreply.github.com&gt;" />
+    <MESSAGE value="stuff" />
+    <MESSAGE value="made gitignore allow the .gbd file to be pushed. idk why u included that" />
+    <option name="LAST_COMMIT_MESSAGE" value="made gitignore allow the .gbd file to be pushed. idk why u included that" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/TrailMixr$OR_Tools_Test.coverage" NAME="OR-Tools Test Coverage Results" MODIFIED="1751137625149" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />

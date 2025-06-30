@@ -7,12 +7,14 @@ import requests
 import shapely
 import base64
 import matplotlib
+import rasterio
 import numpy as np
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcol
 from api.weather import Weather
 from api.campsites import Campsite, Event, Day
+from api.secrets import BACKUP_CAMPSITE_ALGO_PARAMS
 from google import genai
 from shapely.ops import snap, split
 from scipy.stats import binned_statistic_2d
@@ -29,6 +31,7 @@ class Calculate:
 
     DISTANCE_THRESH = 40 #lowk, idk what this does. i think im not using it anymore, but im not sure
     DISTANCE_THRESH_FOR_EVENTS = 40
+    WEATHER_THRESH = 0
 
     def __init__(self):
         """
@@ -65,6 +68,17 @@ class Calculate:
         self.speed = 1.29
         self.hours = 24
         self.veg_grad = None
+
+        # CONSTANTS:
+        self.BUFFER = 10
+        self.BBOX_SIZE = 10
+
+        # BACKUP CAMPSITE CONSTANTS
+        self.backup_thresh = BACKUP_CAMPSITE_ALGO_PARAMS["score_thresh"]
+        self.weather_var_func = BACKUP_CAMPSITE_ALGO_PARAMS["weather_var_func"]
+        self.vegetation_var_func = BACKUP_CAMPSITE_ALGO_PARAMS["vegetation_var_func"]
+        self.vegetation_score_func = BACKUP_CAMPSITE_ALGO_PARAMS["vegetation_score_func"]
+
 
     def select_trail(self, name=None, park=None):
         """
@@ -187,7 +201,7 @@ class Calculate:
         a function to extract all the vegetation density data. it also gets the necessary elevation data
         :return: the vegetation density grid and the x and y edges
         """
-        buffered_trail = self.selected_trail.buffer(10)
+        buffered_trail = self.selected_trail.buffer(self.BUFFER)
         l = time.time()
 
         pipeline = [
@@ -347,7 +361,7 @@ class Calculate:
             new_lines.append(shapely.geometry.LineString(coords_3d))
 
         segments_wo_buffer = shapely.geometry.MultiLineString(new_lines)
-        segments = shapely.geometry.MultiLineString(new_lines).buffer(10)
+        segments = shapely.geometry.MultiLineString(new_lines).buffer(self.BUFFER)
         stop_multipoint = shapely.geometry.MultiPoint([
             shapely.geometry.Point(
             self.stops[i][0],
@@ -543,6 +557,39 @@ class Calculate:
         k, _ = self.overlay_weather_over_veg_secondary(x, g, h)
 
         return np.nansum(k)
+
+    def find_backup_campsites(self, weather_scores, veg_density_graph, low_veg_density_graph, elevation_grid, segment):
+        segment = segment.buffer(self.BUFFER)
+        for j, i in weather_scores:
+            if i < self.WEATHER_THRESH:
+                min_x, min_y, max_x, max_y = segment.total_bounds
+                grid = []
+                for x in range(min_x, min_y, self.BBOX_SIZE):
+                    for y in range(min_x, min_y, self.BBOX_SIZE):
+                        grid.append(shapely.geometry.box(x, y, x+self.BBOX_SIZE, y+self.BBOX_SIZE))
+                grid_df = gpd.GeoDataFrame(geometry=grid, crs=segment.crs)
+                index = grid_df.index.sindex
+                index= index.query(segment.union_all())
+                index = grid_df.iloc[index]
+                index = index[index.intersects(segment.union_all())]
+
+                elevation_arr, _ = rasterio.mask.mask(elevation_grid, index.geometry, crop=False)
+                vegetation_arr, _ = rasterio.mask.mask(veg_density_graph, index.geometry, crop=False)
+                low_vegetation_arr, _ = rasterio.mask.mask(low_veg_density_graph, index.geometry, crop=False)
+
+                best_square = []
+                backup_scores = []
+                for val in index:
+                    weather_variance = np.nanvar(elevation_arr)
+                    vegetation_variance = np.nansum(vegetation_arr)
+                    low_vegetation_score = np.nansum(low_vegetation_arr)
+                    total = self.weather_var_func(weather_variance) + self.vegetation_var_func(vegetation_variance) + self.vegetation_score_func(low_vegetation_score)
+                    if total < self.backup_thresh:
+                        best_square.append(val)
+                        backup_scores.append(total)
+
+                return best_square, backup_scores
+
 
 def main(plan_contents):
     """
