@@ -3,11 +3,8 @@ import os
 import time
 import pdal
 import json
-import rasterio.features
-import rasterio.transform
 import requests
 import shapely
-import rasterio
 import base64
 import matplotlib
 import numpy as np
@@ -25,7 +22,6 @@ from dotenv import load_dotenv
 
 matplotlib.use('Agg')
 load_dotenv()
-
 
 GEMINI_KEY = os.getenv("API_KEY")
 TOMORROW_KEY = os.getenv("API_KEY_TOMORROW")
