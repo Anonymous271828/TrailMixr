@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrailMixr</title>
+    <script type="module" src="scripts/main.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="css/mobiscroll.javascript.min.css" rel="stylesheet" />
+    <script src="js/mobiscroll.javascript.min.js"></script>
+</head>
+
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section style="display: none;"></section>
+        <div id="find-nearby-trails"
+            style="position: relative; width: 100%; overflow: hidden; min-height: 350px; height: 350px;">
+            <section style="
+    position: absolute; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+  ">
+                <div style="
+    position: relative; 
+    display: flex;  
+    flex-direction: column; 
+    align-items: center;
+  ">
+                    <div class="title" style="padding-top: 35px; text-align: center;">
+                        Plan 1: Happy Trail @ Algonquin
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="section-divider"></div>
+
+        <section style="height: 300vh; display: flex !important; flex-direction: column !important; margin: 0 auto;">
+            <div style="margin-left: 200px; margin-right: 200px;">
+                
+                <div class="heading" style="padding-bottom: 20px; text-align: center;">
+                    Create Your Plan
+                </div>
+                <div class="collapsible-row" tabindex="0">
+                    <div class="collapsible-header">
+                        <span class="option-number">1</span>
+                        <span class="option-title">What's the name of your adventure?</span>
+                        <span class="chevron">&#9662;</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <input type="text" id="adv-name" placeholder="Adventure Name"
+                            style="margin-left: 8px; width: 30%; height: 30px;">
+                    </div>
+                </div>
+                <div class="collapsible-row" tabindex="0">
+                    <div class="collapsible-header">
+                        <span class="option-number">2</span>
+                        <span class="option-title">How many people are coming with you?</span>
+                        <span class="chevron">&#9662;</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <input type="number" id="num-people" min="0" max="20" value="0"
+                            style="margin-left: 8px; width: 30%; height: 30px;">
+                    </div>
+                </div>
+                <div class="collapsible-row" tabindex="0">
+                    <div class="collapsible-header">
+                        <span class="option-number">3</span>
+                        <span class="option-title">Which luxuries do you prefer to have?</span>
+                        <span class="chevron">&#9662;</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="luxury-grid">
+                            <label class="luxury-option">
+                                <input type="checkbox" name="luxury" value="cooler">
+                                <span class="luxury-title">Washrooms</span>
+                                <span class="luxury-desc">Access to washrooms like outhouses or porta-potties</span>
+                            </label>
+                            <label class="luxury-option">
+                                <input type="checkbox" name="luxury" value="cooler">
+                                <span class="luxury-title">Clean water</span>
+                                <span class="luxury-desc">All your stop will be near a clean water source</span>
+                            </label>
+                            <label class="luxury-option">
+                                <input type="checkbox" name="luxury" value="cooler">
+                                <span class="luxury-title">Good Weather</span>
+                                <span class="luxury-desc">Your plan will be optimized to avoid bad weather</span>
+                            </label>
+                            <label class="luxury-option">
+                                <input type="checkbox" name="luxury" value="cooler">
+                                <span class="luxury-title">WiFi</span>
+                                <span class="luxury-desc">Your stops will be near a cell-phone tower</span>
+                            </label>
+                            <label class="luxury-option">
+                                <input type="checkbox" name="luxury" value="cooler">
+                                <span class="luxury-title">Good Fishing Stops</span>
+                                <span class="luxury-desc">Your plan will be optimized to increase your chance of a catch
+                                    while fishing</span>
+                            </label>
+                            <label class="luxury-option">
+                                <input type="checkbox" name="luxury" value="cooler">
+                                <span class="luxury-title">Good Hunting Stops</span>
+                                <span class="luxury-desc">Your plan will be optimized to increase your chance of a catch
+                                    while hunting</span>
+                            </label>
+                            <label class="luxury-option">
+                                <input type="checkbox" name="luxury" value="cooler">
+                                <span class="luxury-title">Animals</span>
+                                <span class="luxury-desc">Your plan will be optimized to increase your chance of seeing an
+                                    animal</span>
+                            </label>
+                            <label class="luxury-option">
+                                <input type="checkbox" name="luxury" value="cooler">
+                                <span class="luxury-title">Good Terrain</span>
+                                <span class="luxury-desc">All your stops will be in good terrain</span>
+                            </label>
+                            <label class="luxury-option">
+                                <input type="checkbox" name="luxury" value="cost-reduction" id="luxury-cost-reduction">
+                                <span class="luxury-title">Cost-Reduction</span>
+                                <span class="luxury-desc">Your plan will avoid the need for new equipment</span>
+                            </label>
+                            <label class="luxury-option">
+                                <input type="checkbox" name="luxury" value="cooler">
+                                <span class="luxury-title">Weight-Reduction</span>
+                                <span class="luxury-desc">Your plan will eliminate as much weight as possible</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapsible-row" tabindex="0">
+                    <div class="collapsible-header">
+                        <span class="option-number">4</span>
+                        <span class="option-title">When do you want your adventure to take place?</span>
+                        <span class="chevron">&#9662;</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="date-options-vertical">
+                            <div class="date-row">
+                                <span class="date-btn-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-calendar-icon lucide-calendar">
+                                        <path d="M8 2v4" />
+                                        <path d="M16 2v4" />
+                                        <rect width="18" height="18" x="3" y="4" rx="2" />
+                                        <path d="M3 10h18" />
+                                    </svg>
+                                </span>
+                                <button type="button" class="date-option-btn" id="show-range-btn">Choose range</button>
+                            </div>
+                            <div class="date-or-separator-vertical">
+                                <div class="line"></div>
+                                <div class="or-text">or</div>
+                                <div class="line"></div>
+                            </div>
+                            <div class="date-row">
+                                <span class="date-btn-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-calendar-icon lucide-calendar">
+                                        <path d="M8 2v4" />
+                                        <path d="M16 2v4" />
+                                        <rect width="18" height="18" x="3" y="4" rx="2" />
+                                        <path d="M3 10h18" />
+                                    </svg>
+                                </span>
+                                <button type="button" class="date-option-btn" id="show-multi-btn">I'm available on these
+                                    days. Create a schedule for me</button>
+                            </div>
+                            <!-- Hidden Mobiscroll inputs -->
+                            <input id="range-picker" type="text" style="display:none;">
+                            <input id="multi-date-picker" type="text" style="display:none;">
+                        </div>
+                    </div>
+                </div>
+                <div class="collapsible-row" tabindex="0">
+                    <div class="collapsible-header">
+                        <span class="option-number">5</span>
+                        <span class="option-title">Do you want us to contact emergency services in the event you don't close your plan?</span>
+                        <span class="chevron">&#9662;</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="radio-group">
+                            <label class="custom-radio">
+                                <input type="radio" name="emergency-contact" value="yes">
+                                <span class="radio-label">Yes</span>
+                            </label>
+                            <label class="custom-radio">
+                                <input type="radio" name="emergency-contact" value="no">
+                                <span class="radio-label">No</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapsible-row" tabindex="0">
+                    <div class="collapsible-header">
+                        <span class="option-number">6</span>
+                        <span class="option-title">Do you want us to generate back-up plans or tutorials in the event something goes wrong?</span>
+                        <span class="chevron">&#9662;</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="radio-group">
+                            <label class="custom-radio">
+                                <input type="radio" name="backup-tutorials" value="yes">
+                                <span class="radio-label">Yes</span>
+                            </label>
+                            <label class="custom-radio">
+                                <input type="radio" name="backup-tutorials" value="no">
+                                <span class="radio-label">No</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapsible-row" tabindex="0" id="partner-row" style="display: none;">
+                    <div class="collapsible-header">
+                        <span class="option-number">7</span>
+                        <span class="option-title">You did not select the cost-reduction option. Do you want to see some options from our partners?</span>
+                        <span class="chevron">&#9662;</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="radio-group">
+                            <label class="custom-radio">
+                                <input type="radio" name="partner-options" value="yes">
+                                <span class="radio-label">Yes</span>
+                            </label>
+                            <label class="custom-radio">
+                                <input type="radio" name="partner-options" value="no">
+                                <span class="radio-label">No</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <button class="button-bg generate-plan-btn" type="button">Generate Plan!</button>
+            </div>
+        </section>
+
+        <div id="footer-placeholder"></div>
+    </main>
+
+    <script>
+        // Load the header
+        if (!document.getElementById("header-placeholder").hasChildNodes()) {
+            fetch("header.html")
+                .then(res => res.text())
+                .then(data => {
+                    document.getElementById("header-placeholder").innerHTML = data;
+                });
+        }
+
+
+        // Load the footer
+        if (!document.getElementById("footer-placeholder").hasChildNodes()) {
+            fetch("footer.html")
+                .then(res => res.text())
+                .then(data => {
+                    document.getElementById("footer-placeholder").innerHTML = data;
+                });
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.collapsible-row').forEach(function (row) {
+                row.addEventListener('click', function (e) {
+                    // Only toggle if header or chevron is clicked
+                    if (e.target.closest('.collapsible-header')) {
+                        row.classList.toggle('active');
+                    }
+                });
+                row.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        row.classList.toggle('active');
+                        e.preventDefault();
+                    }
+                });
+            });
+
+            mobiscroll.setOptions({
+                theme: 'ios',
+                themeVariant: 'light'
+            });
+
+            // Range picker
+            var rangeInst = mobiscroll.datepicker('#range-picker', {
+                select: 'range',
+                touchUi: true
+            });
+
+            // Multi-date picker
+            var multiInst = mobiscroll.datepicker('#multi-date-picker', {
+                selectMultiple: true,
+                selectCounter: true,
+                touchUi: true
+            });
+
+            document.getElementById('show-range-btn').addEventListener('click', function () {
+                rangeInst.open();
+            });
+            document.getElementById('show-multi-btn').addEventListener('click', function () {
+                multiInst.open();
+            });
+
+            // Show/hide partner row based on cost-reduction checkbox
+            const costReductionCheckbox = document.getElementById('luxury-cost-reduction');
+            const partnerRow = document.getElementById('partner-row');
+            if (costReductionCheckbox && partnerRow) {
+                function updatePartnerRowVisibility() {
+                    partnerRow.style.display = costReductionCheckbox.checked ? 'none' : '';
+                }
+                costReductionCheckbox.addEventListener('change', updatePartnerRowVisibility);
+                // Initial state
+                updatePartnerRowVisibility();
+            }
+        });
+    </script>
+
+    <style>
+        .collapsible-row {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            margin-bottom: 8px;
+            transition: box-shadow 0.2s;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .collapsible-row:focus,
+        .collapsible-row:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .collapsible-header {
+            display: flex;
+            align-items: center;
+            padding: 18px 20px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            user-select: none;
+        }
+
+        .option-number {
+            font-weight: bold;
+            border-radius: 50%;
+            border: 3px solid #222;
+            width: 28px;
+            height: 28px;
+            font-family: 'Inter';
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            color: #222;
+        }
+
+        .option-title {
+            color: #111;
+            font-weight: 700;
+            margin-right: auto;
+        }
+
+        .chevron {
+            font-size: 1.2em;
+            transition: transform 0.2s;
+        }
+
+        .collapsible-row.active .chevron {
+            transform: rotate(180deg);
+        }
+
+        .collapsible-content {
+            display: none;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            padding-left: 64px;
+            padding-right: 64px;
+            padding-bottom: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #eee;
+        }
+
+        .collapsible-content input {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Inter';
+            padding-left: 15px;
+            color: #5a5a5a;
+        }
+
+        .collapsible-row.active .collapsible-content {
+            display: block;
+        }
+
+        .luxury-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px 24px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+
+        .luxury-option {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 14px 16px 10px 16px;
+            border: 1px solid #e0e0e0;
+            transition: box-shadow 0.1s;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .luxury-option:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        }
+
+        .luxury-option input[type="checkbox"] {
+            margin-bottom: 8px;
+            accent-color: #222;
+            width: 18px;
+            height: 18px;
+        }
+
+        .luxury-title {
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 2px;
+            font-size: 1rem;
+        }
+
+        .luxury-desc {
+            font-size: 0.92rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .date-options-vertical {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+
+        .date-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 2px;
+        }
+
+        .date-label {
+            font-size: 0.97rem;
+            color: #222;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            min-width: 160px;
+        }
+
+        .date-input {
+            width: 210px;
+            height: 38px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            padding-left: 10px;
+            font-family: 'Inter';
+            color: #5a5a5a;
+            background: #fff;
+        }
+
+        .date-selected {
+            font-size: 0.95rem;
+            color: #444;
+            margin-left: 8px;
+            min-width: 120px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .date-or-separator-vertical {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 12px;
+            margin: 8px 0 8px 0;
+        }
+
+        .date-or-separator-vertical .line:first-child {
+            flex: none;
+            width: 5%;
+            border-top: 1.5px solid #e0e0e0;
+        }
+
+        .date-or-separator-vertical .line:last-child {
+            flex: 1;
+            border-top: 1.5px solid #e0e0e0;
+        }
+
+        .date-or-separator-vertical .or-text {
+            font-size: 1.1rem;
+            color: #888;
+            font-weight: 600;
+            margin: 0 8px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .date-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 2px;
+        }
+
+        .date-btn-icon {
+            display: flex;
+            align-items: center;
+            margin-right: 0;
+        }
+
+        .date-option-btn {
+            background: #222;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            cursor: pointer;
+            margin-bottom: 0;
+            transition: background 0.15s, box-shadow 0.15s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            text-align: left;
+            align-self: flex-start;
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .date-option-btn:hover,
+        .date-option-btn:focus {
+            background: #444;
+            outline: none;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 24px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .custom-radio {
+            display: flex;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #222;
+            cursor: pointer;
+            gap: 8px;
+        }
+        .custom-radio input[type="radio"] {
+            accent-color: #222;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1.5px solid #222;
+            margin-right: 6px;
+        }
+        .radio-label {
+            font-size: 1rem;
+            color: #222;
+            font-weight: 500;
+        }
+        .generate-plan-btn {
+            display: block;
+            width: 100% !important;
+            margin: 32px 0 0 0;
+            padding: 13px 0;
+            background: #222;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: background 0.15s;
+        }
+        .generate-plan-btn:hover, .generate-plan-btn:focus {
+            background: #444;
+            outline: none;
+        }
+    </style>
+</body>
